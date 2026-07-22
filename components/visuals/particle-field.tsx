@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -37,7 +37,26 @@ function Points() {
     return array;
   }, [positions]);
 
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    function handleChange() {
+      setPrefersReducedMotion(media.matches);
+    }
+
+    handleChange();
+    media.addEventListener("change", handleChange);
+    return () => media.removeEventListener("change", handleChange);
+  }, []);
+
   useFrame((_, delta) => {
+    if (prefersReducedMotion) return;
     if (ref.current) ref.current.rotation.y += delta * 0.02;
   });
 
