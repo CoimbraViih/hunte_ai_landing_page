@@ -50,6 +50,13 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+@theme {
+  /* Hunter.AI brand colors */
+  --color-ink: #0A0F0D;
+  --color-signal: #2EE6A0;
+  --color-amber: #FFB23E;
+}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
