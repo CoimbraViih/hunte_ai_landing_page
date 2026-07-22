@@ -30,12 +30,8 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
         <Image src="/logo.svg" alt="Hunter.AI" width={120} height={30} priority />
-        <div className="sm:hidden">
-          <WhatsAppCta label="WhatsApp" />
-        </div>
-        <div className="hidden sm:block">
-          <WhatsAppCta label="Falar no WhatsApp" />
-        </div>
+        <WhatsAppCta label="WhatsApp" className="sm:hidden" />
+        <WhatsAppCta label="Falar no WhatsApp" className="hidden sm:inline-flex" />
       </div>
     </motion.header>
   );
