@@ -44,7 +44,7 @@ function Points() {
 export function ParticleField() {
   return (
     <div className="absolute inset-0 -z-10">
-      <Canvas camera={{ position: [0, 0, 5] }}>
+      <Canvas camera={{ position: [0, 0, 5] }} dpr={[1, 1.5]}>
         <Points />
       </Canvas>
     </div>
