@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hunter Labs — Social Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0A0D14;--surface:#11151E;--surface-2:#161B26;--line:#222a38;
+    --green:#2EE6A0;--amber:#FFB23E;--ember:#E8390E;--data:#3B82F6;
+    --text:#EAEEF4;--muted:#7E8AA0;
+    --display:'Space Grotesk',sans-serif;--body:'Manrope',sans-serif;--mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--text);font-family:var(--body);line-height:1.65;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(900px 520px at 92% -8%,rgba(232,57,14,.09),transparent 60%),radial-gradient(820px 540px at -6% 40%,rgba(46,230,160,.08),transparent 60%);}
+  .wrap{max-width:960px;margin:0 auto;padding:0 32px}
+  section{padding:74px 0;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;margin-bottom:18px;color:var(--muted)}
+  .eyebrow.e{color:var(--ember)} .eyebrow.g{color:var(--green)}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,8vw,82px);line-height:1.02;letter-spacing:-.03em}
+  h2{font-family:var(--display);font-weight:600;font-size:clamp(26px,4vw,40px);line-height:1.08;letter-spacing:-.02em;margin-bottom:14px}
+  h3{font-family:var(--display);font-weight:600;font-size:19px;margin:0 0 8px}
+  h4{font-family:var(--display);font-weight:600;font-size:15px;margin:0 0 6px;color:var(--text)}
+  p{max-width:70ch}
+  p.lede{font-size:clamp(17px,2vw,21px);color:#C7D0DE}
+  .muted{color:var(--muted)}
+  .hero{min-height:72vh;display:flex;flex-direction:column;justify-content:center}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:26px 0;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em}
+  .reticle{display:flex;align-items:center;gap:12px}
+  .grid{display:grid;gap:20px;margin-top:34px}
+  .g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:780px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .card.e{border-top:3px solid var(--ember)} .card.g{border-top:3px solid var(--green)}
+  .card.b{border-top:3px solid var(--data)} .card.a{border-top:3px solid var(--amber)}
+  .kv{display:flex;gap:16px;padding:13px 0;border-bottom:1px dashed var(--line)}
+  .kv:last-child{border-bottom:0}
+  .kv .k{font-family:var(--display);font-weight:600;min-width:150px}
+  .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin:2px 4px 2px 0}
+  .tag.e{color:var(--ember);border-color:rgba(232,57,14,.4)} .tag.g{color:var(--green);border-color:rgba(46,230,160,.4)}
+  ul.clean{list-style:none;margin-top:8px}
+  ul.clean li{padding:7px 0 7px 22px;position:relative;color:#C7D0DE}
+  ul.clean li:before{content:"›";position:absolute;left:0;font-family:var(--mono);color:var(--muted)}
+  ul.clean.e li:before{color:var(--ember)} ul.clean.g li:before{color:var(--green)}
+  blockquote{font-family:var(--display);font-weight:500;font-size:clamp(20px,3vw,30px);line-height:1.3;letter-spacing:-.01em;margin:8px 0;border-left:3px solid var(--text);padding-left:20px}
+  code{font-family:var(--mono);font-size:.88em;color:var(--green)}
+  .post{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;margin-top:18px}
+  .post .meta{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .chip{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:999px;border:1px solid var(--line)}
+  .chip.li{color:var(--data);border-color:rgba(59,130,246,.4)} .chip.ig{color:var(--amber);border-color:rgba(255,178,62,.4)}
+  .post .copy{white-space:pre-wrap;font-size:15px;line-height:1.72;color:#DCE3EC;border-left:2px solid var(--line);padding-left:16px}
+  .do-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+  @media(max-width:780px){.do-row{grid-template-columns:1fr}}
+  .do{border-left:3px solid var(--green)} .dont{border-left:3px solid var(--ember)}
+  table{width:100%;border-collapse:collapse;margin-top:24px;font-size:14px}
+  th,td{text-align:left;padding:12px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  td .d{font-family:var(--mono);font-size:11px;color:var(--muted)}
+  .toc{columns:2;gap:24px;font-family:var(--mono);font-size:13px;line-height:2}
+  @media(max-width:780px){.toc{columns:1}}
+  .toc a{color:#C7D0DE;text-decoration:none} .toc a:hover{color:var(--green)}
+  footer{padding:54px 0;text-align:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;border:1px solid var(--line);padding:6px 12px;border-radius:999px;color:var(--muted)}
+  .num{font-family:var(--mono);color:var(--green)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="reticle">
+      <svg width="26" height="26" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="19" stroke="#EAEEF4" stroke-width="2.5"/><path d="M24 5 V13 M24 35 V43 M5 24 H13 M35 24 H43" stroke="#EAEEF4" stroke-width="2.5" stroke-linecap="round"/><circle cx="24" cy="24" r="5.5" fill="#E8390E"/><path d="M24 18.5 a5.5 5.5 0 0 1 0 11 z" fill="#2EE6A0"/></svg>
+      <span>HUNTER LABS</span>
+    </div>
+    <span>SOCIAL PLAYBOOK · v1.0 · 2026</span>
+  </div>
+</div>
+
+<header class="hero wrap">
+  <div class="eyebrow">Estratégia de redes sociais · perfil guarda-chuva</div>
+  <h1>Uma marca.<br>Uma mira.<br>Duas caças.</h1>
+  <p class="lede" style="margin-top:24px">Este é o manual de operação das redes da <b>Hunter Labs</b> — a casa que constrói a <b style="color:var(--ember)">AdHunter</b> (performance) e a <b style="color:var(--green)">Hunter AI</b> (oportunidade). Objetivo desta fase: <b>autoridade</b>. Canais: <b>LinkedIn + Instagram</b>. Sem hype, com dado.</p>
+  <div style="margin-top:28px"><span class="tag g">Autoridade primeiro</span><span class="tag">LinkedIn + Instagram</span><span class="tag e">Build-in-public</span><span class="tag">Português-BR</span></div>
+</header>
+
+<section class="wrap">
+  <div class="eyebrow">Índice</div>
+  <div class="toc">
+    <a href="#decisao">00 · A decisão estratégica</a><br>
+    <a href="#posicionamento">01 · Posicionamento do guarda-chuva</a><br>
+    <a href="#arquitetura">02 · Arquitetura de marca</a><br>
+    <a href="#publico">03 · Público & objetivo</a><br>
+    <a href="#voz">04 · Tom de voz unificado</a><br>
+    <a href="#pilares">05 · Pilares de conteúdo</a><br>
+    <a href="#bios">06 · Bios, @s e setup dos perfis</a><br>
+    <a href="#canais">07 · Estratégia por canal</a><br>
+    <a href="#cadencia">08 · Cadência & formatos</a><br>
+    <a href="#kpis">09 · KPIs de autoridade</a><br>
+    <a href="#calendario">10 · Calendário — 4 semanas</a><br>
+    <a href="#posts">11 · Copy pronta dos posts</a><br>
+    <a href="#proximos">12 · Quando ligar o lead gen</a><br>
+  </div>
+</section>
+
+<section class="wrap" id="decisao">
+  <div class="eyebrow">00 — A decisão estratégica</div>
+  <h2>Por que UM perfil — e o que isso exige</h2>
+  <p class="lede">Você optou por um perfil único guarda-chuva (Hunter Labs) servindo as duas empresas. É uma escolha defensável para o estágio atual: concentra esforço, constrói o nome "Hunter" uma vez e evita manter dois perfis pela metade.</p>
+  <div class="do-row">
+    <div class="card do"><h4 style="color:var(--green)">O que ganhamos</h4><ul class="clean g"><li>Um só ativo pra crescer — todo engajamento alimenta a mesma marca.</li><li>Narrativa de holding/founder: mais forte pra autoridade do que conta de produto.</li><li>Menos custo de produção e gestão.</li></ul></div>
+    <div class="card dont"><h4 style="color:var(--ember)">O risco a administrar</h4><ul class="clean e"><li>Públicos quase opostos (gestor de tráfego × dono de PME). Misturar as vozes no mesmo post mata as duas.</li><li>Regra de ouro: <b>cada post fala para UM público de cada vez</b> e sinaliza qual produto está em foco pela cor/tag.</li><li>O guarda-chuva vende a <b>tese comum</b> (a caça), não a soma dos dois produtos.</li></ul></div>
+  </div>
+  <p class="muted" style="margin-top:22px">Decisão registrada: objetivo desta fase é <b>autoridade</b>, não venda. O produto ainda não é assinável (deploy e billing pendentes). Capturamos interesse, construímos reputação e ligamos a captação de leads quando houver o que vender — ver seção 12.</p>
+</section>
+
+<section class="wrap" id="posicionamento">
+  <div class="eyebrow">01 — Posicionamento</div>
+  <h2>O que a Hunter Labs é nas redes</h2>
+  <blockquote style="margin-bottom:28px">"Construímos a IA que caça: oportunidade para quem empreende, performance para quem anuncia."</blockquote>
+  <div class="grid g3">
+    <div class="card"><div class="pill">Categoria</div><h3 style="margin-top:14px">Casa de IA aplicada</h3><p class="muted">Não é agência, não é ferramenta avulsa. É um estúdio que desenvolve produtos de IA com um instinto em comum: achar o sinal no ruído e agir com precisão.</p></div>
+    <div class="card"><div class="pill">Promessa editorial</div><h3 style="margin-top:14px">Mostrar a caça</h3><p class="muted">Conteúdo que ensina a mirar melhor — em mídia paga e em IA pra negócio — e abre os bastidores de quem está construindo isso no Brasil.</p></div>
+    <div class="card"><div class="pill">Por que seguir</div><h3 style="margin-top:14px">Dado &gt; opinião</h3><p class="muted">Quem segue a Hunter Labs sai mais afiado: números reais, decisões explicadas, zero "fórmula mágica". Sai sabendo, não animado.</p></div>
+  </div>
+  <h3 style="margin-top:36px">Frase-âncora e variações</h3>
+  <ul class="clean">
+    <li><b>Principal:</b> "IA que caça oportunidade e performance."</li>
+    <li><b>Curta (bio):</b> "Inteligência que caça."</li>
+    <li><b>Manifesto:</b> "Caçar não é força — é leitura, paciência e precisão. Construímos a IA que faz isso por quem empreende e por quem anuncia."</li>
+  </ul>
+</section>
+
+<section class="wrap" id="arquitetura">
+  <div class="eyebrow">02 — Arquitetura de marca</div>
+  <h2>Como AdHunter e Hunter AI aparecem</h2>
+  <p class="lede">A Hunter Labs é a marca-mãe (neutra: mira branca sobre fundo escuro). Os produtos entram como linhas, cada um com sua cor de assinatura. O leitor sempre sabe de qual produto se fala pela cor e pela tag.</p>
+  <div class="grid g2" style="margin-top:34px">
+    <div class="card e">
+      <span class="tag e">#AdHunter · ember</span>
+      <h3 style="margin-top:12px">Quando o post é AdHunter</h3>
+      <p class="muted">Voz técnica e implacável. Fala ROAS, CPA, atribuição, desperdício de verba. Público: gestor de tráfego e agência. Tom: "esse criativo está queimando verba — pause".</p>
+    </div>
+    <div class="card g">
+      <span class="tag g">#HunterAI · signal green</span>
+      <h3 style="margin-top:12px">Quando o post é Hunter AI</h3>
+      <p class="muted">Voz próxima e acessível. Fala de tempo economizado, cliente não perdido, IA sem manual. Público: dono de pequeno negócio. Tom: "a Hunter achou 3 oportunidades hoje".</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:20px"><h4>Posts de marca-mãe (neutros)</h4><p class="muted">Tese, visão, bastidor de construção, cultura e contratação falam pela Hunter Labs em tom de fundador — usam mist/branco e podem tocar nos dois lados. É aqui que mora a autoridade do guarda-chuva.</p></div>
+  <p class="muted" style="margin-top:18px;font-family:var(--mono);font-size:12px">REGRA — nunca venda os dois produtos no mesmo post. Um post = um foco = uma cor.</p>
+</section>
+
+<section class="wrap" id="publico">
+  <div class="eyebrow">03 — Público & objetivo</div>
+  <h2>Para quem falamos</h2>
+  <div class="grid g3">
+    <div class="card e"><h4>Gestor de tráfego / agência</h4><p class="muted">Vive de performance, fala em sigla, decide por número. Quer ver método e prova. (lado AdHunter)</p></div>
+    <div class="card g"><h4>Dono de PME</h4><p class="muted">Sem tempo, sem time técnico. Quer resultado em tempo e em dinheiro, explicado simples. (lado Hunter AI)</p></div>
+    <div class="card b"><h4>Ecossistema & pares</h4><p class="muted">Founders, devs, investidores, imprensa de tech/adtech. Seguem pela tese e pelo build-in-public. (autoridade)</p></div>
+  </div>
+  <h3 style="margin-top:36px">Objetivo desta fase</h3>
+  <p class="lede"><b>Autoridade.</b> Não medimos venda — medimos reputação: quem do setor engaja, qual tese viraliza, quanto crescemos em audiência qualificada. A captação de leads/early-access entra de forma passiva (link na bio) e vira foco quando o produto estiver vendável.</p>
+</section>
+
+<section class="wrap" id="voz">
+  <div class="eyebrow">04 — Tom de voz</div>
+  <h2>Como a Hunter Labs fala</h2>
+  <p class="lede">A voz do guarda-chuva é a média afiada das duas marcas: a precisão técnica da AdHunter + a clareza humana da Hunter AI. Funciona como um fundador esperto explicando o que está construindo.</p>
+  <div class="card" style="margin-top:30px">
+    <div class="kv"><div class="k">Afiada</div><p>Direto ao alvo. Cada post tem uma ideia só. Corta o que não ajuda a entender ou decidir.</p></div>
+    <div class="kv"><div class="k">Baseada em dado</div><p>Nenhuma afirmação sem número. Quando não há dado, dizemos que não há — e por quê.</p></div>
+    <div class="kv"><div class="k">De construtor</div><p>Mostramos o processo, os erros e as decisões. Build-in-public é o coração da autoridade.</p></div>
+    <div class="kv"><div class="k">Sem hype</div><p>Zero "revolucionário", "potencialize", "solução disruptiva". A confiança vem do conteúdo, não do adjetivo.</p></div>
+  </div>
+  <div class="do-row">
+    <div class="card do"><span class="tag g">✓ Escreva assim</span><p style="margin-top:12px">"Testamos atribuição last-click vs data-driven na mesma conta. O last-click superestimou o Google em 31%. Print abaixo — e por que isso quebra decisão de verba."</p></div>
+    <div class="card dont"><span class="tag e">✕ Evite</span><p style="margin-top:12px">"🚀 Estamos REVOLUCIONANDO o marketing digital com IA de ponta! Não fique de fora dessa transformação omnichannel! 🔥"</p></div>
+  </div>
+  <h3 style="margin-top:34px">Regras rápidas</h3>
+  <ul class="clean">
+    <li>Tratamento por "você". Primeira pessoa do plural ("a gente", "construímos") nos posts de marca-mãe.</li>
+    <li>Número sempre que possível, em destaque. <code>+38%</code>, <code>ROAS 4.2x</code>, <code>R$1.240 em 48h</code>.</li>
+    <li>Emoji: no LinkedIn, quase nenhum. No Instagram, pontual e funcional (nunca decorativo em rajada).</li>
+    <li>Uma ideia por post. Se tem duas, são dois posts.</li>
+    <li>Termo técnico é bem-vindo no lado AdHunter; no lado Hunter AI, traduza sempre.</li>
+  </ul>
+</section>
+
+<section class="wrap" id="pilares">
+  <div class="eyebrow">05 — Pilares de conteúdo</div>
+  <h2>Os 5 pilares (e a proporção)</h2>
+  <p class="lede">Toda postagem nasce de um pilar. A proporção sugerida mantém autoridade no centro sem virar diário técnico nem feira de produto.</p>
+  <div class="grid g2" style="margin-top:30px">
+    <div class="card b"><div class="pill">35% · âncora</div><h3 style="margin-top:12px">1 · Build-in-public</h3><p class="muted">O que estamos construindo, decisões de produto, erros, números internos, bastidor de engenharia e design. É o que diferencia a Hunter Labs de um perfil genérico de IA.</p></div>
+    <div class="card"><div class="pill">25%</div><h3 style="margin-top:12px">2 · Tese & visão</h3><p class="muted">POVs fortes e fundamentados: desperdício de verba, atribuição, IA pra PME, futuro de adtech no Brasil. Opinião que provoca debate de pares.</p></div>
+    <div class="card a"><div class="pill">20%</div><h3 style="margin-top:12px">3 · Educação prática</h3><p class="muted">Dicas reais e salváveis. Tráfego/atribuição (ember) e IA pra pequeno negócio (green). Útil mesmo pra quem nunca vai comprar.</p></div>
+    <div class="card g"><div class="pill">15%</div><h3 style="margin-top:12px">4 · Prova & dado</h3><p class="muted">Mini-estudos, benchmarks, "o que os dados dizem", capturas reais de tela do produto/painel. Reforça "dado acima de opinião".</p></div>
+    <div class="card e"><div class="pill">5%</div><h3 style="margin-top:12px">5 · Marca & gente</h3><p class="muted">Quem está por trás, cultura, contratações, manifesto. Humaniza e atrai talento/parceiro.</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="bios">
+  <div class="eyebrow">06 — Identidade dos perfis</div>
+  <h2>Bios, @s e setup</h2>
+
+  <h3 style="margin-top:10px">Sugestão de @ (garanta o mesmo nas duas redes)</h3>
+  <p class="muted">Ordem de preferência. Registre o mesmo handle no LinkedIn, Instagram e no domínio antes de divulgar.</p>
+  <ul class="clean">
+    <li><b>@hunterlabs.ai</b> — primeira escolha (ai reforça a categoria).</li>
+    <li><b>@hunter.labs</b> — alternativa limpa.</li>
+    <li><b>@somos.hunterlabs</b> / <b>@hunterlabs.co</b> — fallbacks BR.</li>
+    <li>LinkedIn: <code>linkedin.com/company/hunter-labs</code> · Domínio: <code>hunterlabs.ai</code> ou <code>.com.br</code></li>
+  </ul>
+
+  <div class="grid g2" style="margin-top:30px">
+    <div class="card b">
+      <span class="chip li">LinkedIn · Página</span>
+      <h3 style="margin-top:14px">Bio / Sobre</h3>
+      <p class="copy" style="margin-top:10px">Hunter Labs — IA que caça oportunidade e performance.
+
+Construímos produtos de inteligência artificial para quem empreende e para quem anuncia:
+
+▸ AdHunter — AdTech de performance com loop fechado de otimização (campanhas, criativos com IA, pixel próprio e atribuição num só painel).
+▸ Hunter AI — ecossistema de IA para pequenos e médios negócios.
+
+Caçar não é força — é leitura, paciência e precisão. Aqui a gente mostra a construção, com dado e sem hype.
+
+Early-access ▸ [link]</p>
+      <p class="muted" style="margin-top:12px;font-size:13px"><b>Slogan (tagline field, 120 car.):</b> Construímos a IA que caça oportunidade e performance. Bastidores, tese e dado — sem hype.</p>
+    </div>
+    <div class="card a">
+      <span class="chip ig">Instagram · Bio (150 car.)</span>
+      <h3 style="margin-top:14px">Versão A — institucional</h3>
+      <p class="copy" style="margin-top:10px">🎯 IA que caça oportunidade e performance
+Construindo AdHunter + Hunter AI no Brasil
+Dado &gt; opinião · sem hype
+↓ entre na lista de early-access</p>
+      <h3 style="margin-top:20px">Versão B — build-in-public</h3>
+      <p class="copy" style="margin-top:10px">Construindo, em público, a IA que caça 🎯
+↳ AdHunter (performance) + Hunter AI (oportunidade)
+Bastidor, tese e número real
+👇 early-access + conteúdo</p>
+      <p class="muted" style="margin-top:12px;font-size:13px"><b>Nome do perfil (busca):</b> Hunter Labs · IA aplicada</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h4>Avatar, banner e destaques</h4>
+    <p class="muted">Avatar = a retícula de mira da família, em branco sobre Ink, com o ponto central dividido (ember + green) sinalizando as duas caças. Banner do LinkedIn e capas de destaque do Instagram estão no <b>Kit de Perfis</b> (arquivo separado) já nas dimensões certas. Mantenha o avatar idêntico nas duas redes.</p>
+  </div>
+</section>
+
+<section class="wrap" id="canais">
+  <div class="eyebrow">07 — Estratégia por canal</div>
+  <h2>LinkedIn ≠ Instagram</h2>
+  <div class="grid g2" style="margin-top:30px">
+    <div class="card b">
+      <span class="chip li">LinkedIn — motor de autoridade</span>
+      <h3 style="margin-top:14px">Papel</h3>
+      <p class="muted">Canal principal de autoridade B2B. Onde estão donos de agência, gestores de tráfego, founders e investidores.</p>
+      <h4 style="margin-top:16px">O que funciona</h4>
+      <ul class="clean"><li>Post de texto longo (founder-led), 1ª pessoa.</li><li>Carrossel (documento PDF) educativo ou de tese.</li><li>Bastidor de construção com print real.</li><li>Vaga e cultura (atrai talento + alcance).</li></ul>
+      <h4 style="margin-top:14px">Evitar</h4>
+      <p class="muted">Link externo no corpo do post (mata alcance — põe no 1º comentário). Hashtag em excesso (3–5 bastam).</p>
+    </div>
+    <div class="card a">
+      <span class="chip ig">Instagram — alcance e rosto</span>
+      <h3 style="margin-top:14px">Papel</h3>
+      <p class="muted">Vitrine visual e humana. Alcança gestores e PMEs, dá rosto à marca e prova que o produto existe.</p>
+      <h4 style="margin-top:16px">O que funciona</h4>
+      <ul class="clean"><li>Carrossel educativo (salvável) com os templates do kit.</li><li>Reel curto: bastidor, demo de tela, 1 dica afiada.</li><li>Card de tese/frase forte (formato "frase Hunter").</li><li>Stories: enquete, prévia, "perguntem".</li></ul>
+      <h4 style="margin-top:14px">Evitar</h4>
+      <p class="muted">Texto denso de sigla sem tradução. Card poluído. Emoji em rajada.</p>
+    </div>
+  </div>
+  <p class="muted" style="margin-top:22px">Reaproveitamento inteligente: a tese nasce no LinkedIn (texto) → vira carrossel no Instagram → vira reel de 30s. Um insight, três formatos.</p>
+</section>
+
+<section class="wrap" id="cadencia">
+  <div class="eyebrow">08 — Cadência & formatos</div>
+  <h2>Ritmo sustentável</h2>
+  <p class="lede">Consistência &gt; volume. Melhor 3 posts bons por semana por anos do que 7 por duas semanas e silêncio. Abaixo, o mínimo viável que sustenta autoridade.</p>
+  <table>
+    <tr><th>Canal</th><th>Frequência</th><th>Formatos da semana</th><th>Stories/extra</th></tr>
+    <tr><td><b>LinkedIn</b></td><td class="num">3x / semana</td><td>1 tese + 1 build-in-public + 1 educação ou prova</td><td>Reposts com comentário próprio</td></tr>
+    <tr><td><b>Instagram</b></td><td class="num">3–4x / semana</td><td>1 carrossel + 1 reel + 1 card de frase (+1 livre)</td><td class="num">3–5 stories/semana</td></tr>
+  </table>
+  <p class="muted" style="margin-top:18px">Horários BR sugeridos: LinkedIn ter–qui, 8h–9h ou 12h. Instagram fim de tarde (18h–20h) e domingo à noite. Ajustar pelos dados após 3–4 semanas.</p>
+</section>
+
+<section class="wrap" id="kpis">
+  <div class="eyebrow">09 — KPIs</div>
+  <h2>Como medir autoridade (não vaidade)</h2>
+  <div class="grid g4">
+    <div class="card"><div class="num" style="font-family:var(--mono);font-size:13px">PROFUNDIDADE</div><h4 style="margin-top:10px">Taxa de engajamento</h4><p class="muted">Comentários + salvamentos por alcance. Mais importante que curtida.</p></div>
+    <div class="card"><div class="num" style="font-family:var(--mono);font-size:13px">QUALIDADE</div><h4 style="margin-top:10px">Quem engaja</h4><p class="muted">Pares do setor, founders, gestores comentando = sinal de autoridade real.</p></div>
+    <div class="card"><div class="num" style="font-family:var(--mono);font-size:13px">ALCANCE</div><h4 style="margin-top:10px">Não-seguidores</h4><p class="muted">% de alcance fora da base. Mostra se o conteúdo viaja.</p></div>
+    <div class="card"><div class="num" style="font-family:var(--mono);font-size:13px">INTENÇÃO</div><h4 style="margin-top:10px">Waitlist & DMs</h4><p class="muted">Inscritos no early-access e conversas qualificadas — mesmo em modo autoridade.</p></div>
+  </div>
+  <p class="muted" style="margin-top:20px">Meta dos primeiros 90 dias (sugestão, ajustável): consistência de 100% das publicações planejadas, taxa de engajamento &gt; 4% no Instagram, e ≥ 50 inscritos qualificados na waitlist vindos das redes.</p>
+</section>
+
+<section class="wrap" id="calendario">
+  <div class="eyebrow">10 — Calendário</div>
+  <h2>Primeiras 4 semanas</h2>
+  <p class="lede">Semana 1 lança a marca e a tese. As seguintes alternam build-in-public, educação e prova, equilibrando os lados ember (AdHunter) e green (Hunter AI). Copy pronta dos posts marcados com ★ na seção 11.</p>
+  <table>
+    <tr><th>Semana</th><th>LinkedIn</th><th>Instagram</th><th>Foco</th></tr>
+    <tr>
+      <td><b>1</b><br><span class="d">Lançamento</span></td>
+      <td>★ Post-manifesto "por que Hunter Labs existe"<br>★ Tese: "15–30% da sua verba some — e ninguém te mostra onde"<br>Build: "o que estamos construindo (e o que ainda não)"</td>
+      <td>★ Card-manifesto (carrossel de apresentação)<br>Reel: bastidor de tela do produto<br>★ Card de frase: "Caçar não é força. É precisão."</td>
+      <td><span class="tag">marca-mãe</span></td>
+    </tr>
+    <tr>
+      <td><b>2</b><br><span class="d">Tese AdHunter</span></td>
+      <td>★ "Last-click vs data-driven: o teste que muda sua verba"<br>Educação: 5 sinais de que um criativo está queimando verba<br>Build: como construímos o pixel server-side</td>
+      <td>Carrossel: "5 sinais de criativo queimando verba" (ember)<br>Reel: 1 dica de atribuição em 30s<br>Card de dado: "ROAS médio antes/depois"</td>
+      <td><span class="tag e">ember</span></td>
+    </tr>
+    <tr>
+      <td><b>3</b><br><span class="d">Tese Hunter AI</span></td>
+      <td>Tese: "IA pra PME não é chatbot — é a próxima melhor ação"<br>Build: o agente de WhatsApp por dentro<br>Educação: 3 tarefas que a IA já tira do dono hoje</td>
+      <td>Carrossel: "3 coisas que a IA faz pelo seu negócio hoje" (green)<br>Reel: dono de negócio + IA (caso/simulação)<br>Card de frase (green)</td>
+      <td><span class="tag g">green</span></td>
+    </tr>
+    <tr>
+      <td><b>4</b><br><span class="d">Prova & gente</span></td>
+      <td>Prova: mini-estudo com números reais do produto<br>Marca: quem está por trás + estamos contratando<br>Tese de fechamento do mês</td>
+      <td>Carrossel: bastidor do mês em números<br>Reel: o time / cultura<br>Card: convite pro early-access</td>
+      <td><span class="tag b">prova</span></td>
+    </tr>
+  </table>
+</section>
+
+<section class="wrap" id="posts">
+  <div class="eyebrow">11 — Copy pronta</div>
+  <h2>Posts de lançamento (copiar e colar)</h2>
+  <p class="lede">Dez peças prontas para as semanas 1–2. Ajuste números entre [colchetes] com dados reais antes de publicar — a marca não afirma sem dado.</p>
+
+  <div class="post">
+    <div class="meta"><span class="chip li">LinkedIn</span> <span>Pilar: build-in-public · marca-mãe</span> <span>★ Manifesto</span></div>
+    <div class="copy">A maioria das empresas perde dinheiro do mesmo jeito: sem ver onde.
+
+15 a 30% da verba de mídia some em anúncio ruim. O pequeno negócio perde cliente porque demora a responder. Em ambos os casos, o problema é o mesmo — falta um sistema que leia o sinal no meio do ruído e aja na hora certa.
+
+É por isso que existimos.
+
+A Hunter Labs constrói IA que caça. Duas frentes, um instinto:
+
+▸ AdHunter — caça desperdício de verba. Campanhas, criativos com IA, pixel próprio e atribuição num painel só, com um loop que melhora o próximo criativo sozinho.
+▸ Hunter AI — caça oportunidade pro pequeno negócio. Agentes que respondem cliente, organizam dado e apontam a próxima melhor ação.
+
+Caçar não é força. É leitura, paciência e precisão.
+
+Vamos construir isso em público — com número real e sem hype. Acompanha aqui.
+
+#IA #AdTech #MarketingDigital #BuildInPublic</div>
+  </div>
+
+  <div class="post">
+    <div class="meta"><span class="chip li">LinkedIn</span> <span>Pilar: tese · ember (AdHunter)</span> <span>★</span></div>
+    <div class="copy">Sua verba de tráfego tem um vazamento. Você só não tem o cano à mostra.
+
+Todo gestor conhece a sensação: o relatório diz que está tudo "ok", mas o caixa não fecha. O problema quase nunca é o valor investido — é a atribuição errada decidindo onde investir.
+
+Exemplo real que vemos toda semana:
+→ No last-click, o Google "leva o crédito" da conversão.
+→ No data-driven, fica claro que foi o Meta que abriu a porta [dias antes].
+
+Resultado: a verba migra pro canal errado e o CPA sobe sem ninguém entender por quê.
+
+A AdHunter mede isso com pixel próprio server-side e atribuição multi-touch — pra você decidir com o dado certo, não com o último clique.
+
+Qual modelo de atribuição você usa hoje? Last-click ainda?
+
+#AdTech #Atribuição #Tráfego #Performance</div>
+  </div>
+
+  <div class="post">
+    <div class="meta"><span class="chip li">LinkedIn</span> <span>Pilar: tese · green (Hunter AI)</span></div>
+    <div class="copy">IA pra pequeno negócio não é colocar um chatbot no site.
+
+Chatbot responde pergunta. O dono não precisa de mais uma tela pra olhar — precisa de algo que olhe por ele e diga o que fazer a seguir.
+
+É outra categoria: a próxima melhor ação.
+
+"Sua loja vendeu [22%] a mais essa semana. 3 anúncios estão puxando o resultado — quer dobrar a aposta neles?"
+"Tem [4] clientes sem resposta há mais de um dia. Respondo por você?"
+
+Isso é o que a Hunter AI está construindo: agentes que trabalham enquanto o dono cuida do negócio. Em português, sem manual, valendo desde o primeiro dia.
+
+A pergunta que guia tudo: a IA economizou seu tempo ou criou mais uma tarefa?
+
+#InteligenciaArtificial #PequenoNegócio #Automação</div>
+  </div>
+
+  <div class="post">
+    <div class="meta"><span class="chip li">LinkedIn</span> <span>Pilar: build-in-public · marca-mãe</span></div>
+    <div class="copy">O que estamos construindo agora — e o que ainda NÃO está pronto. (build-in-public, sem maquiagem)
+
+Pronto e rodando:
+✓ Gestão de campanhas multiplataforma (Meta, Google, programático)
+✓ Pixel server-side próprio com atribuição multi-touch
+✓ Creative Studio com IA pra copy e banner
+
+Em construção:
+◐ Billing e infra de produção (o que falta pra você poder assinar)
+◐ Integrações de e-commerce
+
+Decisão honesta da semana: adiamos [feature X] pra priorizar [Y], porque o dado de uso mostrou que [motivo].
+
+Construir em público significa mostrar isso também. Pergunta aberta: o que você gostaria de ver primeiro?
+
+#BuildInPublic #Startup #AdTech</div>
+  </div>
+
+  <div class="post">
+    <div class="meta"><span class="chip ig">Instagram</span> <span>Pilar: build-in-public · carrossel</span> <span>★ Apresentação</span></div>
+    <div class="copy">[CARROSSEL — 6 cards]
+
+Card 1: Caçar não é força. É precisão. 🎯
+Card 2: Somos a Hunter Labs. Construímos IA que caça.
+Card 3: AdHunter → caça o desperdício da sua verba de tráfego.
+Card 4: Hunter AI → caça oportunidade pro seu pequeno negócio.
+Card 5: Mesmo instinto: ler o sinal no ruído e agir na hora certa.
+Card 6: Vamos construir isso em público. Segue a gente. 👇
+
+LEGENDA:
+A gente acredita numa coisa: dado &gt; opinião.
+Por isso construímos duas frentes de IA — uma pra quem anuncia, outra pra quem empreende — e vamos mostrar cada passo aqui, com número real e zero hype.
+Salva esse post e acompanha a caça. 🎯
+#IA #MarketingDigital #PequenoNegócio #BuildInPublic #AdTech</div>
+  </div>
+
+  <div class="post">
+    <div class="meta"><span class="chip ig">Instagram</span> <span>Pilar: educação · ember · carrossel</span></div>
+    <div class="copy">[CARROSSEL — "5 sinais de que seu criativo está queimando verba"]
+
+Card 1: 5 sinais de que seu criativo está QUEIMANDO verba 🔥
+Card 2: 1. CPA subindo há 3+ dias seguidos e frequência acima de [3].
+Card 3: 2. CTR caindo enquanto o custo por clique sobe.
+Card 4: 3. ROAS abaixo de [1.5x] depois de [R$X] gastos.
+Card 5: 4. Conversões "somem" entre a plataforma e o seu caixa real.
+Card 6: 5. Você não sabe dizer qual criativo trouxe a última venda.
+Card 7: Se marcou 2+, é hora de pausar e medir direito. A AdHunter faz isso sozinha. Salva aí. 🎯
+
+LEGENDA:
+Verba boa não morre de overdose — morre de falta de medição.
+Qual desses sinais você já viu na sua conta? Comenta o número. 👇
+#Tráfego #MarketingDigital #Anúncios #Performance #GestorDeTráfego</div>
+  </div>
+
+  <div class="post">
+    <div class="meta"><span class="chip ig">Instagram</span> <span>Pilar: tese · card de frase</span> <span>★</span></div>
+    <div class="copy">[CARD ÚNICO — frase Hunter, fundo Ink, mira ao fundo]
+
+"Caçar não é sobre força.
+É sobre ler o terreno,
+mirar o alvo certo
+e disparar uma vez só."
+
+LEGENDA:
+O mesmo instinto vale pra mídia paga e pra IA de negócio: o resultado não vem de fazer mais — vem de mirar melhor.
+É essa a tese que move tudo que construímos na Hunter Labs.
+🎯 #IA #Estratégia #MarketingDigital #Mentalidade</div>
+  </div>
+
+  <div class="post">
+    <div class="meta"><span class="chip ig">Instagram</span> <span>Pilar: educação · green · carrossel</span></div>
+    <div class="copy">[CARROSSEL — "3 tarefas que a IA já tira do seu colo hoje"]
+
+Card 1: 3 tarefas que a IA já faz pelo seu negócio HOJE 🎯
+Card 2: 1. Responder o cliente na hora — mesmo 23h de domingo.
+Card 3: 2. Te avisar quem ficou sem resposta antes de virar venda perdida.
+Card 4: 3. Mostrar o que está vendendo e o que não está, em português.
+Card 5: Não é mais uma tela pra você olhar. É algo que olha por você.
+Card 6: Isso é a Hunter AI. Entra na lista de early-access 👇
+
+LEGENDA:
+Tecnologia de empresa grande, na mão de quem toca um negócio de verdade.
+Qual dessas 3 faria mais diferença pra você? Comenta. 👇
+#PequenoNegócio #InteligenciaArtificial #Empreendedorismo #Automação</div>
+  </div>
+
+  <div class="post">
+    <div class="meta"><span class="chip ig">Instagram</span> <span>Pilar: build-in-public · reel</span></div>
+    <div class="copy">[REEL — 20 a 30s · bastidor de tela]
+
+ROTEIRO / falas na tela:
+0–3s: "Isso aqui detecta quando sua campanha começa a queimar dinheiro."
+3–10s: [tela do painel] anomalia: "CPA subiu 64% em 6h."
+10–18s: "A IA já gera 3 variações novas com score acima de 80."
+18–25s: "Você aprova com um toque. Esse é o loop fechado."
+25–30s: "Hunter Labs. Construindo em público. Segue. 🎯"
+
+LEGENDA:
+Menos dashboard pra você decifrar. Mais decisão pronta.
+Esse é um pedaço do que estamos construindo na AdHunter. 🎯
+#AdTech #BuildInPublic #Tráfego #IA</div>
+  </div>
+
+  <div class="post">
+    <div class="meta"><span class="chip li">LinkedIn</span> <span>Pilar: marca & gente · contratação</span></div>
+    <div class="copy">Estamos construindo a Hunter Labs e procurando gente que enxerga o sinal no ruído.
+
+Se você curte: produto de IA aplicado a problema real, dado acima de opinião, e construir em público sem teatro — vamos conversar.
+
+[Vagas / áreas: ___]
+
+Não precisa de currículo perfeito. Precisa de instinto de caça e vontade de errar rápido e medir.
+
+Manda DM ou comenta. 🎯
+
+#Vagas #Startup #IA #AdTech</div>
+  </div>
+</section>
+
+<section class="wrap" id="proximos">
+  <div class="eyebrow">12 — Próximo estágio</div>
+  <h2>Quando ligar o lead gen</h2>
+  <p class="lede">Hoje o foco é autoridade porque o produto ainda não é assinável. O gatilho para virar a chave de captação ativa:</p>
+  <ul class="clean">
+    <li><b>Pré-requisito de produto:</b> deploy em produção (M10) + billing e fiscal BR (M22) prontos — aí existe o que vender.</li>
+    <li><b>Ponte até lá:</b> manter um link de <b>early-access / lista de clientes-fundadores</b> na bio. Captura passiva, sem prometer o que não há.</li>
+    <li><b>Sinal de prontidão de audiência:</b> engajamento consistente de pares + waitlist crescendo organicamente.</li>
+    <li><b>Virada:</b> quando os três acima baterem, trocar CTA de "entre na lista" para "comece agora", ativar campanhas pagas e sequências de e-mail sobre a base já aquecida.</li>
+  </ul>
+  <p class="muted" style="margin-top:20px">Enquanto isso, cada post de autoridade é um tijolo: quando o produto abrir, a marca não começa do zero — começa com reputação e uma lista quente.</p>
+</section>
+
+<footer>
+  HUNTER LABS · SOCIAL PLAYBOOK v1.0 · documento vivo — ajustável conforme os dados das redes evoluem · família de marcas Hunter
+</footer>
+</body>
+</html>

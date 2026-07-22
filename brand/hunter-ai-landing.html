@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hunter.AI — Agentes de IA, sites e redesign para o seu negócio vender mais</title>
+<meta name="description" content="A Hunter.AI desenvolve agentes de IA humanizados para atendimento, cria sites para quem ainda não tem e redesenha sites que não convertem. Fale agora no WhatsApp." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Ccircle cx='55' cy='55' r='40' stroke='%232EE6A0' stroke-width='8' fill='none'/%3E%3Ccircle cx='55' cy='55' r='12' fill='%232EE6A0'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0A0F0D;
+    --surface:#111815;
+    --surface-2:#16201B;
+    --surface-3:#1B2620;
+    --line:#243029;
+    --line-soft:#1A241E;
+    --signal:#2EE6A0;
+    --signal-dim:#1FA877;
+    --hunter:#0E4D3A;
+    --amber:#FFB23E;
+    --mist:#E8EFEA;
+    --muted:#7A8B83;
+    --danger:#E5484D;
+    --display:'Space Grotesk',sans-serif;
+    --body:'Manrope',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ink);color:var(--mist);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(900px 500px at 88% -5%, rgba(46,230,160,.12), transparent 60%),
+      radial-gradient(700px 500px at -5% 40%, rgba(255,178,62,.05), transparent 60%),
+      radial-gradient(800px 600px at 100% 100%, rgba(46,230,160,.06), transparent 60%);
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--signal);color:#06231A}
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block;max-width:100%}
+  .grain{position:fixed;inset:0;pointer-events:none;opacity:.035;z-index:1;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;position:relative;z-index:2}
+  @media(max-width:640px){.wrap{padding:0 20px}}
+  section{padding:120px 0;border-bottom:1px solid var(--line-soft);position:relative}
+  @media(max-width:820px){section{padding:80px 0}}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--signal);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:16px;height:1px;background:var(--signal)}
+  h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.05;letter-spacing:-.02em}
+  h2{font-size:clamp(30px,4.2vw,48px);margin-bottom:16px}
+  h3{font-size:21px;margin-bottom:10px}
+  p.lede{font-size:clamp(17px,2vw,20px);color:#C5D2CB;max-width:60ch}
+  .muted{color:var(--muted)}
+  .center{text-align:center;margin-left:auto;margin-right:auto}
+
+  /* ===== NAV ===== */
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(10,15,13,.72);border-bottom:1px solid var(--line-soft)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand .word{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.01em}
+  .brand .word .ai{color:var(--signal)}
+  .nav-links{display:flex;gap:36px;font-size:14px;font-weight:500}
+  .nav-links a{color:var(--muted);transition:color .2s ease;position:relative}
+  .nav-links a:hover{color:var(--mist)}
+  .nav-cta{display:flex;align-items:center;gap:16px}
+  .nav-mobile-toggle{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--mist);cursor:pointer}
+  @media(max-width:900px){.nav-links{display:none}.nav-mobile-toggle{display:block}}
+
+  /* ===== BUTTONS ===== */
+  .btn{font-family:var(--body);font-weight:700;font-size:14px;border-radius:10px;padding:13px 22px;border:0;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:transform .18s ease, box-shadow .18s ease, background .18s ease;white-space:nowrap}
+  .btn-primary{background:var(--signal);color:#06231A;box-shadow:0 0 0 0 rgba(46,230,160,.5)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px -8px rgba(46,230,160,.55)}
+  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--mist)}
+  .btn-ghost:hover{border-color:var(--signal-dim);color:var(--signal)}
+  .btn-lg{padding:16px 28px;font-size:15px;border-radius:12px}
+  .btn svg{width:16px;height:16px}
+
+  /* ===== HERO ===== */
+  .hero{min-height:92vh;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid var(--line-soft);position:relative}
+  .hero-crosshair{position:absolute;right:-60px;top:50%;transform:translateY(-50%);width:520px;height:520px;opacity:.5;pointer-events:none}
+  @media(max-width:1100px){.hero-crosshair{opacity:.22;right:-160px;width:440px;height:440px}}
+  @media(max-width:640px){.hero-crosshair{display:none}}
+  .hero-crosshair .ring{transform-origin:260px 260px;animation:spin 40s linear infinite}
+  .hero-crosshair .ring2{transform-origin:260px 260px;animation:spin 60s linear infinite reverse}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media(prefers-reduced-motion:reduce){.hero-crosshair .ring,.hero-crosshair .ring2{animation:none}}
+  .hero h1{font-family:var(--display);font-size:clamp(40px,6.4vw,78px);font-weight:700;letter-spacing:-.03em;max-width:15ch}
+  .hero h1 .ai{color:var(--signal)}
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-top:36px}
+  .hero .sub{display:flex;gap:14px;flex-wrap:wrap;margin-top:44px;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+  .hero .sub span{border:1px solid var(--line);padding:8px 14px;border-radius:999px;display:flex;align-items:center;gap:8px}
+  .hero .sub span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--signal)}
+
+  /* ===== reveal ===== */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease}
+  .reveal.in{opacity:1;transform:translateY(0)}
+  .reveal.d1{transition-delay:.08s}
+  .reveal.d2{transition-delay:.16s}
+  .reveal.d3{transition-delay:.24s}
+  .reveal.d4{transition-delay:.32s}
+
+  /* ===== GRID / CARDS ===== */
+  .grid{display:grid;gap:22px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:900px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px;transition:border-color .25s ease, transform .25s ease, background .25s ease}
+  .card:hover{border-color:var(--signal-dim);transform:translateY(-3px);background:var(--surface-2)}
+  .card .num{font-family:var(--mono);font-size:12px;color:var(--signal);letter-spacing:.15em;margin-bottom:16px;display:block}
+  .icon-box{width:46px;height:46px;border-radius:12px;background:rgba(46,230,160,.08);border:1px solid var(--signal-dim);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+  .icon-box svg{width:22px;height:22px;stroke:var(--signal)}
+
+  /* ===== PROBLEM ===== */
+  .problem-card{border-left:2px solid var(--danger)}
+  .problem-card .tag{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--danger)}
+
+  /* ===== PILL ===== */
+  .pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--signal);border:1px solid var(--signal-dim);padding:6px 12px;border-radius:999px;background:rgba(46,230,160,.06)}
+
+  /* ===== STEPS ===== */
+  .steps{position:relative;margin-top:56px}
+  .step-row{display:grid;grid-template-columns:80px 1fr;gap:28px;padding:36px 0;border-bottom:1px dashed var(--line)}
+  .step-row:last-child{border-bottom:0}
+  .step-num{font-family:var(--display);font-size:15px;color:var(--signal);border:1px solid var(--signal-dim);width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;background:rgba(46,230,160,.05)}
+  .step-label{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+  @media(max-width:640px){.step-row{grid-template-columns:52px 1fr;gap:16px}.step-num{width:42px;height:42px;font-size:13px}}
+
+  /* ===== PRODUCT MOCK ===== */
+  .mock-section{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center;margin-top:56px}
+  @media(max-width:900px){.mock-section{grid-template-columns:1fr}}
+  .phone{background:var(--surface);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.6);max-width:380px;margin:0 auto}
+  .phone .bar{background:var(--hunter);padding:16px 18px;display:flex;align-items:center;gap:10px}
+  .phone .bar .av{width:34px;height:34px;border-radius:50%;background:var(--signal);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .phone .bar .av svg{width:18px;height:18px;stroke:#06231A}
+  .phone .bar .info b{display:block;font-size:14px}
+  .phone .bar .info span{display:block;font-size:11.5px;color:rgba(232,239,234,.65);font-family:var(--mono)}
+  .phone .thread{padding:20px 16px;display:flex;flex-direction:column;gap:10px;min-height:360px;background:
+    linear-gradient(180deg, var(--surface-2), var(--surface))}
+  .bubble{max-width:82%;padding:11px 14px;border-radius:14px;font-size:13.5px;line-height:1.45}
+  .bubble.in{background:var(--surface-3);align-self:flex-start;border-bottom-left-radius:4px}
+  .bubble.out{background:var(--signal);color:#06231A;align-self:flex-end;border-bottom-right-radius:4px;font-weight:600}
+  .bubble.sys{align-self:center;font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;background:transparent}
+  .phone .composer{padding:14px 16px;border-top:1px solid var(--line);display:flex;gap:10px;align-items:center}
+  .phone .composer .field{flex:1;height:38px;border-radius:10px;background:var(--surface-3);border:1px solid var(--line)}
+  .phone .composer .send{width:38px;height:38px;border-radius:10px;background:var(--signal);flex-shrink:0}
+
+  .stat-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px}
+  .stat-card .label{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .stat-card .value{font-family:var(--display);font-size:32px;font-weight:700;color:var(--signal)}
+  .stat-card .value.amber{color:var(--amber)}
+  .stat-card .delta{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:6px}
+
+  /* ===== VOICE / DO-DONT ===== */
+  .dodont{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
+  @media(max-width:820px){.dodont{grid-template-columns:1fr}}
+  .do{border-left:3px solid var(--signal)}
+  .dont{border-left:3px solid var(--danger)}
+  .tag-ok{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--signal)}
+  .tag-no{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--danger)}
+
+  /* ===== TESTIMONIAL PLACEHOLDER ===== */
+  .quote-card{background:var(--surface);border:1px dashed var(--line);border-radius:16px;padding:40px;text-align:center}
+  .quote-card blockquote{font-family:var(--display);font-size:clamp(18px,2.4vw,24px);font-weight:500;color:#C5D2CB;max-width:52ch;margin:0 auto 18px}
+  .quote-card .who{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+  /* ===== FAQ ===== */
+  .faq-item{border-bottom:1px solid var(--line);padding:24px 0}
+  .faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:var(--display);font-weight:600;font-size:17px;gap:16px}
+  .faq-q .plus{font-family:var(--mono);color:var(--signal);font-size:20px;transition:transform .25s ease;flex-shrink:0}
+  .faq-item.open .plus{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .faq-a p{padding-top:14px;color:var(--muted);max-width:65ch}
+  .faq-item.open .faq-a{max-height:220px}
+
+  /* ===== FINAL CTA ===== */
+  .cta-section{background:linear-gradient(180deg,var(--surface),var(--ink));position:relative;overflow:hidden}
+  .cta-box{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:64px 48px;text-align:center;position:relative;overflow:hidden}
+  @media(max-width:640px){.cta-box{padding:44px 24px}}
+  .cta-box::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 50% 0%, rgba(46,230,160,.12), transparent 70%);pointer-events:none}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:36px;max-width:600px;margin-left:auto;margin-right:auto;position:relative;z-index:2}
+  @media(max-width:640px){.form-row{grid-template-columns:1fr}}
+  .form-row.full{grid-template-columns:1fr}
+  .field-input{background:var(--surface-3);border:1px solid var(--line);border-radius:10px;padding:13px 16px;color:var(--mist);font-family:var(--body);font-size:14px;width:100%;transition:border-color .2s ease}
+  .field-input:focus{outline:none;border-color:var(--signal-dim)}
+  .field-input::placeholder{color:var(--muted)}
+  .form-note{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:16px}
+  .form-success{display:none;font-family:var(--mono);font-size:13px;color:var(--signal);margin-top:20px;padding:14px;border:1px solid var(--signal-dim);border-radius:10px;background:rgba(46,230,160,.06)}
+  .form-success.show{display:block}
+
+  /* ===== FOOTER ===== */
+  footer{padding:56px 0 40px}
+  .footer-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:32px;padding-bottom:40px;border-bottom:1px solid var(--line-soft)}
+  .footer-links{display:flex;gap:48px;flex-wrap:wrap}
+  .footer-col b{display:block;font-family:var(--display);font-size:13px;margin-bottom:14px;color:var(--mist)}
+  .footer-col a{display:block;font-size:13.5px;color:var(--muted);margin-bottom:10px;transition:color .2s ease}
+  .footer-col a:hover{color:var(--signal)}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:28px;font-family:var(--mono);font-size:11.5px;color:var(--muted);flex-wrap:wrap;gap:12px}
+
+  .marquee-wrap{overflow:hidden;position:relative;margin-top:48px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .marquee{display:flex;gap:64px;width:max-content;animation:scroll 28s linear infinite;align-items:center}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media(prefers-reduced-motion:reduce){.marquee{animation:none}}
+  .marquee span{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--muted);white-space:nowrap}
+
+  /* ===== WHATSAPP FLOAT ===== */
+  .wa-float{position:fixed;bottom:26px;right:26px;width:60px;height:60px;border-radius:50%;background:var(--signal);display:flex;align-items:center;justify-content:center;box-shadow:0 14px 34px -10px rgba(46,230,160,.55);z-index:60;transition:transform .2s ease}
+  .wa-float:hover{transform:scale(1.08)}
+  .wa-float svg{width:28px;height:28px;fill:#06231A}
+  @media(max-width:640px){.wa-float{width:52px;height:52px;bottom:18px;right:18px}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">
+      <svg width="26" height="26" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="19" stroke="#2EE6A0" stroke-width="2.5"/>
+        <path d="M24 5 V13 M24 35 V43 M5 24 H13 M35 24 H43" stroke="#2EE6A0" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="24" cy="24" r="5.5" fill="#2EE6A0"/>
+      </svg>
+      <span class="word">Hunter<span class="ai">.AI</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#problema">O problema</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#resultados">Resultados</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#" target="_blank" rel="noopener" class="btn btn-primary wa-link">Falar no WhatsApp</a>
+      <button class="nav-mobile-toggle" aria-label="menu">≡</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <svg class="hero-crosshair" viewBox="0 0 520 520" fill="none">
+    <circle class="ring" cx="260" cy="260" r="220" stroke="#2EE6A0" stroke-width="1" opacity=".5"/>
+    <circle class="ring2" cx="260" cy="260" r="160" stroke="#2EE6A0" stroke-width="1" stroke-dasharray="2 10" opacity=".7"/>
+    <circle cx="260" cy="260" r="90" stroke="#2EE6A0" stroke-width="1.4" opacity=".8"/>
+    <path d="M260 30 V90 M260 430 V490 M30 260 H90 M430 260 H490" stroke="#2EE6A0" stroke-width="1.4" stroke-linecap="round" opacity=".8"/>
+    <circle cx="260" cy="260" r="16" fill="#2EE6A0"/>
+  </svg>
+  <div class="wrap">
+    <div class="eyebrow reveal in">Agentes de IA para atendimento e vendas</div>
+    <h1 class="reveal in">Enquanto você dorme, a Hunter<span class="ai">.AI</span> já respondeu, qualificou e agendou.</h1>
+    <p class="lede reveal in d1" style="margin-top:24px">Agentes de inteligência artificial que atendem seus clientes 24 horas por dia, qualificam cada conversa e empurram o lead certo pro seu time de vendas — falando como gente, não como robô de central de atendimento.</p>
+    <div class="hero-actions reveal in d2">
+      <a href="#" target="_blank" rel="noopener" class="btn btn-primary btn-lg wa-link">Falar agora no WhatsApp</a>
+      <a href="#servicos" class="btn btn-ghost btn-lg">Ver nossos serviços</a>
+    </div>
+    <div class="sub reveal in d3">
+      <span>Resposta em segundos, não em horas</span>
+      <span>WhatsApp, site e Instagram num só agente</span>
+      <span>No ar em dias, não em meses</span>
+    </div>
+  </div>
+</header>
+
+<section id="problema">
+  <div class="wrap">
+    <div class="eyebrow reveal">01 — O problema</div>
+    <h2 class="reveal" style="max-width:16ch">Cliente não espera. Quem demora, perde a venda.</h2>
+    <p class="lede reveal d1">A maior parte do atendimento de um pequeno ou médio negócio ainda depende de alguém livre pra responder. Quando essa pessoa está ocupada, o cliente vai pro concorrente — e ninguém percebe a venda que não aconteceu.</p>
+
+    <div class="grid g4" style="margin-top:48px">
+      <div class="card problem-card reveal">
+        <span class="tag">Resposta lenta</span>
+        <h3 style="margin-top:14px;font-size:18px">Toda demora é uma chance a mais pro concorrente responder primeiro</h3>
+      </div>
+      <div class="card problem-card reveal d1">
+        <span class="tag">Leads sem triagem</span>
+        <h3 style="margin-top:14px;font-size:18px">O time perde tempo com curioso e some quando aparece o cliente pronto pra comprar</h3>
+      </div>
+      <div class="card problem-card reveal d2">
+        <span class="tag">Atendimento genérico</span>
+        <h3 style="margin-top:14px;font-size:18px">Chatbot decorado assusta mais do que ajuda — cliente sente que fala com máquina</h3>
+      </div>
+      <div class="card problem-card reveal d3">
+        <span class="tag">Equipe sobrecarregada</span>
+        <h3 style="margin-top:14px;font-size:18px">O dia inteiro apagando incêndio, sem sobrar tempo pra vender de verdade</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicos">
+  <div class="wrap">
+    <div class="eyebrow reveal">02 — O que fazemos</div>
+    <h2 class="reveal" style="max-width:24ch">Três formas de parar de perder venda por atendimento e presença digital fracos</h2>
+    <p class="lede reveal d1">A Hunter.AI cuida da parte técnica. Você recebe o resultado pronto — sem precisar entender de IA, automação ou código.</p>
+
+    <div class="grid g3" style="margin-top:48px">
+      <div class="card reveal">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+        <span class="num">01</span>
+        <h3>Agentes de IA para atendimento</h3>
+        <p class="muted">Um agente humanizado que atende seus clientes pelo WhatsApp, Instagram ou site, qualifica cada conversa e agenda direto na sua agenda — 24 horas por dia.</p>
+      </div>
+      <div class="card reveal d1">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 4v5"/></svg></div>
+        <span class="num">02</span>
+        <h3>Criação de site</h3>
+        <p class="muted">Sua empresa ainda não tem site? A gente cria uma presença digital profissional que passa credibilidade e traz o cliente até você.</p>
+      </div>
+      <div class="card reveal d2">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg></div>
+        <span class="num">03</span>
+        <h3>Redesign de site</h3>
+        <p class="muted">Site que já existe mas não converte? A gente reconstrói com foco em deixar o visitante virar cliente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="agentes">
+  <div class="wrap">
+    <div class="eyebrow reveal">03 — O agente de IA em detalhe</div>
+    <h2 class="reveal" style="max-width:20ch">Um agente que trabalha como o seu melhor vendedor — só que sem folga</h2>
+    <p class="lede reveal d1">Não é um chatbot de respostas prontas. É um agente que entende o contexto do seu negócio, conversa em português de gente e sabe a hora de chamar um humano.</p>
+
+    <div class="grid g4" style="margin-top:48px">
+      <div class="card reveal">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+        <h3>Atendimento 24/7</h3>
+        <p class="muted">Responde no WhatsApp, site e Instagram na hora — de madrugada, fim de semana ou feriado. Sem fila de espera.</p>
+      </div>
+      <div class="card reveal d1">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="#2EE6A0"/></svg></div>
+        <h3>Qualificação de leads</h3>
+        <p class="muted">Identifica quem está pronto pra comprar, separa do curioso e prioriza a conversa que vale a pena pro seu time.</p>
+      </div>
+      <div class="card reveal d2">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></div>
+        <h3>Agendamento automático</h3>
+        <p class="muted">Marca reunião, consulta ou visita direto na sua agenda, sem trocar dez mensagens pra fechar um horário.</p>
+      </div>
+      <div class="card reveal d3">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg></div>
+        <h3>Insights de conversão</h3>
+        <p class="muted">Mostra o que está funcionando, onde a venda trava e qual pergunta mais derruba o cliente no meio do caminho.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="como-funciona">
+  <div class="wrap">
+    <div class="eyebrow reveal">04 — Como funciona</div>
+    <h2 class="reveal">Rastrear, mirar, capturar — em três etapas</h2>
+    <p class="lede reveal d1">O mesmo instinto de caça que dá nome à marca organiza a entrega do seu projeto: da primeira conversa até o serviço no ar.</p>
+
+    <div class="steps">
+      <div class="step-row reveal">
+        <div class="step-num">01</div>
+        <div>
+          <div class="step-label">Rastrear</div>
+          <h3>Mapeamos seu negócio</h3>
+          <p class="muted" style="max-width:56ch">Entendemos seus produtos, seu tom de voz, suas dúvidas mais frequentes e onde você está perdendo mais venda — no atendimento, no site ou nos dois.</p>
+        </div>
+      </div>
+      <div class="step-row reveal d1">
+        <div class="step-num">02</div>
+        <div>
+          <div class="step-label">Mirar</div>
+          <h3>Construímos a solução certa pro seu momento</h3>
+          <p class="muted" style="max-width:56ch">Agente de IA, site novo ou redesign — o que fizer mais sentido pro seu negócio agora, sob medida pro seu processo.</p>
+        </div>
+      </div>
+      <div class="step-row reveal d2">
+        <div class="step-num">03</div>
+        <div>
+          <div class="step-label">Capturar</div>
+          <h3>Vai ao ar — e você acompanha o resultado</h3>
+          <p class="muted" style="max-width:56ch">Atendimento, presença digital e conversão rodando de verdade, com o retorno mostrando o que está funcionando.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="resultados">
+  <div class="wrap">
+    <div class="eyebrow reveal">05 — Na prática</div>
+    <h2 class="reveal">Um agente, uma conversa, uma venda a menos perdida</h2>
+    <p class="lede reveal d1">Exemplo ilustrativo de como fica o atendimento do seu negócio depois que o agente de IA entra no ar.</p>
+
+    <div class="mock-section">
+      <div class="phone reveal">
+        <div class="bar">
+          <div class="av">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#06231A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          </div>
+          <div class="info">
+            <b>Agente Hunter</b>
+            <span>online agora</span>
+          </div>
+        </div>
+        <div class="thread" id="chat-thread">
+          <div class="bubble sys">hoje, 23:41</div>
+          <div class="bubble in">Oi! Vocês têm horário disponível pra amanhã à tarde?</div>
+          <div class="bubble out">Tenho sim! Às 14h ou 16h — qual fica melhor pra você?</div>
+          <div class="bubble in">16h é ótimo</div>
+          <div class="bubble out">Fechado ✔ Já separei seu horário e te mando a confirmação por aqui. Alguma dúvida sobre o atendimento antes de eu passar pro nosso time?</div>
+          <div class="bubble sys">agendamento criado automaticamente</div>
+        </div>
+        <div class="composer">
+          <div class="field"></div>
+          <div class="send"></div>
+        </div>
+      </div>
+
+      <div class="grid g2 reveal d1">
+        <div class="stat-card">
+          <div class="label">Tempo de 1ª resposta</div>
+          <div class="value">&lt; 30s</div>
+          <div class="delta">antes: horas de espera</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Conversas atendidas</div>
+          <div class="value amber">100%</div>
+          <div class="delta">nenhum lead sem resposta</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Leads qualificados</div>
+          <div class="value">hunter.run()</div>
+          <div class="delta">filtrados antes de chegar ao time</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Cobertura</div>
+          <div class="value amber">24/7</div>
+          <div class="delta">inclusive fim de semana</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="voz">
+  <div class="wrap">
+    <div class="eyebrow reveal">06 — Como o agente fala</div>
+    <h2 class="reveal">Tecnologia de ponta, linguagem de gente</h2>
+    <p class="lede reveal d1">Seu cliente não quer sentir que está preenchendo formulário. O agente Hunter conversa direto, sem enrolação e sem jargão técnico.</p>
+
+    <div class="dodont">
+      <div class="card do reveal">
+        <span class="tag-ok">✓ Assim o agente responde</span>
+        <p style="margin-top:14px">"Vi que você perguntou sobre o plano Pro — ele inclui atendimento ilimitado. Quer que eu já separe um horário com nosso time?"</p>
+      </div>
+      <div class="card dont reveal d1">
+        <span class="tag-no">✕ Isso o agente nunca diz</span>
+        <p style="margin-top:14px">"Prezado(a) cliente, agradecemos o contato. Em breve um de nossos atendentes dará prosseguimento à sua solicitação."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="prova">
+  <div class="wrap">
+    <div class="eyebrow reveal">07 — Prova social</div>
+    <h2 class="reveal">Espaço reservado para o seu primeiro case</h2>
+    <p class="lede reveal d1" style="margin-bottom:8px">Esta seção existe pra receber depoimentos reais assim que os primeiros clientes tiverem resultado — substitua pelo case real antes de publicar.</p>
+    <div class="quote-card reveal d2" style="margin-top:32px">
+      <blockquote>"[Espaço para depoimento real de cliente — resultado, número e nome verificáveis entram aqui antes do lançamento]"</blockquote>
+      <div class="who">— Nome do cliente, cargo · Empresa</div>
+    </div>
+
+    <div class="marquee-wrap reveal d3">
+      <div class="marquee">
+        <span>COMÉRCIO LOCAL</span><span>·</span><span>CLÍNICAS</span><span>·</span><span>PRESTADORES DE SERVIÇO</span><span>·</span><span>E-COMMERCE</span><span>·</span><span>EDUCAÇÃO</span><span>·</span>
+        <span>COMÉRCIO LOCAL</span><span>·</span><span>CLÍNICAS</span><span>·</span><span>PRESTADORES DE SERVIÇO</span><span>·</span><span>E-COMMERCE</span><span>·</span><span>EDUCAÇÃO</span><span>·</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="eyebrow reveal">08 — Perguntas frequentes</div>
+    <h2 class="reveal">Antes de você perguntar</h2>
+
+    <div style="margin-top:16px;max-width:760px">
+      <div class="faq-item reveal">
+        <div class="faq-q">Além do agente de IA, vocês também cuidam do meu site?<span class="plus">+</span></div>
+        <div class="faq-a"><p>Sim. Além dos agentes de IA para atendimento, criamos site novo pra quem ainda não tem e redesenhamos o site de quem já tem mas não converte.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Preciso trocar de WhatsApp ou sistema?<span class="plus">+</span></div>
+        <div class="faq-a"><p>Não. O agente se conecta ao número e aos canais que você já usa — não muda a experiência de quem já é seu cliente.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">E se o cliente precisar falar com uma pessoa de verdade?<span class="plus">+</span></div>
+        <div class="faq-a"><p>O agente reconhece a hora de passar a conversa pro time humano — com todo o histórico e contexto já organizado.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Quanto tempo leva para colocar no ar?<span class="plus">+</span></div>
+        <div class="faq-a"><p>Depende do serviço e da complexidade do negócio — a gente define o prazo junto com você na primeira conversa, no WhatsApp.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Funciona para o meu tipo de negócio?<span class="plus">+</span></div>
+        <div class="faq-a"><p>Se seu negócio recebe perguntas repetidas por mensagem, depende de responder rápido pra converter, ou ainda não tem um site que representa a marca direito, a gente resolve.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contato" style="border-bottom:0">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <div class="eyebrow center" style="justify-content:center">Comece agora</div>
+      <h2 class="center">Sua próxima venda está esperando resposta</h2>
+      <p class="lede center" style="margin:0 auto">Chama a gente no WhatsApp e conta o que seu negócio precisa — agente de IA, site novo ou redesign. A resposta é rápida e sem compromisso.</p>
+
+      <div style="display:flex;justify-content:center;margin-top:36px;position:relative;z-index:2">
+        <a href="#" target="_blank" rel="noopener" class="btn btn-primary btn-lg wa-link">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.9 11.9L4 20l4.2-1.1a7.9 7.9 0 0 0 3.85 1h0a7.94 7.94 0 0 0 7.94-7.94 7.9 7.9 0 0 0-2.4-5.64zm-5.55 12.2h0a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.66.67-2.44-.16-.25a6.6 6.6 0 1 1 12.24-3.51 6.6 6.6 0 0 1-6.65 6.6zm3.62-4.94c-.2-.1-1.17-.58-1.35-.64-.18-.07-.31-.1-.44.1-.13.2-.5.64-.62.77-.11.13-.23.15-.42.05a5.4 5.4 0 0 1-1.6-.99 6 6 0 0 1-1.1-1.37c-.12-.2 0-.3.09-.4.09-.1.2-.23.3-.35.1-.11.13-.2.2-.33.06-.13.03-.25-.02-.35-.05-.1-.44-1.06-.6-1.45-.16-.38-.32-.33-.44-.33h-.38c-.13 0-.34.05-.52.25-.18.2-.68.66-.68 1.6s.7 1.86.79 2c.1.13 1.36 2.08 3.3 2.92.46.2.82.32 1.1.4.46.15.88.13 1.21.08.37-.06 1.17-.48 1.33-.94.16-.46.16-.85.11-.94-.05-.09-.18-.14-.38-.24z"/></svg>
+          Chamar no WhatsApp
+        </a>
+      </div>
+      <p class="form-note">Resposta rápida · sem compromisso</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div style="max-width:280px">
+        <div class="brand" style="margin-bottom:14px">
+          <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="19" stroke="#2EE6A0" stroke-width="2.5"/>
+            <path d="M24 5 V13 M24 35 V43 M5 24 H13 M35 24 H43" stroke="#2EE6A0" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="24" cy="24" r="5.5" fill="#2EE6A0"/>
+          </svg>
+          <span class="word">Hunter<span class="ai">.AI</span></span>
+        </div>
+        <p class="muted" style="font-size:13.5px">A inteligência que caça oportunidades para pequenos e médios negócios. Parte da família Hunter.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <b>Serviços</b>
+          <a href="#servicos">Ver todos</a>
+          <a href="#agentes">Agente de IA</a>
+          <a href="#como-funciona">Como funciona</a>
+        </div>
+        <div class="footer-col">
+          <b>Empresa</b>
+          <a href="#problema">O problema</a>
+          <a href="#resultados">Resultados</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="footer-col">
+          <b>Contato</b>
+          <a href="mailto:contato@hunter.ai">contato@hunter.ai</a>
+          <a href="#" target="_blank" rel="noopener" class="wa-link">WhatsApp comercial</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>HUNTER.AI · família de marcas Hunter</span>
+      <span>© 2026 · todos os direitos reservados</span>
+    </div>
+  </div>
+</footer>
+
+<a href="#" target="_blank" rel="noopener" class="wa-float wa-link" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.9 11.9L4 20l4.2-1.1a7.9 7.9 0 0 0 3.85 1h0a7.94 7.94 0 0 0 7.94-7.94 7.9 7.9 0 0 0-2.4-5.64zm-5.55 12.2h0a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.66.67-2.44-.16-.25a6.6 6.6 0 1 1 12.24-3.51 6.6 6.6 0 0 1-6.65 6.6zm3.62-4.94c-.2-.1-1.17-.58-1.35-.64-.18-.07-.31-.1-.44.1-.13.2-.5.64-.62.77-.11.13-.23.15-.42.05a5.4 5.4 0 0 1-1.6-.99 6 6 0 0 1-1.1-1.37c-.12-.2 0-.3.09-.4.09-.1.2-.23.3-.35.1-.11.13-.2.2-.33.06-.13.03-.25-.02-.35-.05-.1-.44-1.06-.6-1.45-.16-.38-.32-.33-.44-.33h-.38c-.13 0-.34.05-.52.25-.18.2-.68.66-.68 1.6s.7 1.86.79 2c.1.13 1.36 2.08 3.3 2.92.46.2.82.32 1.1.4.46.15.88.13 1.21.08.37-.06 1.17-.48 1.33-.94.16-.46.16-.85.11-.94-.05-.09-.18-.14-.38-.24z"/></svg>
+</a>
+
+<script>
+  // ===== WhatsApp CTA config =====
+  // TODO(Victor): troque pelo número real da Hunter.AI, formato DDI+DDD+numero, só dígitos (ex: 5511999998888)
+  const WHATSAPP_NUMBER = '55XXXXXXXXXXX';
+  const WHATSAPP_MESSAGE = 'Olá! Quero saber mais sobre a Hunter.AI.';
+  const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+  document.querySelectorAll('.wa-link').forEach(el => el.href = waHref);
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // faq accordion
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    item.querySelector('.faq-q').addEventListener('click', ()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+      if(!isOpen) item.classList.add('open');
+    });
+  });
+
+  // mobile nav (simple: jump to services on toggle)
+  const mobileToggle = document.querySelector('.nav-mobile-toggle');
+  if(mobileToggle){
+    mobileToggle.addEventListener('click', ()=>{
+      document.getElementById('servicos').scrollIntoView({behavior:'smooth'});
+    });
+  }
+</script>
+</body>
+</html>

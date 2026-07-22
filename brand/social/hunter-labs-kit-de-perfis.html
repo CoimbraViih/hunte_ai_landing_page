@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hunter Labs — Kit de Perfis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0A0D14;--surface:#11151E;--surface-2:#161B26;--line:#222a38;
+    --green:#2EE6A0;--amber:#FFB23E;--ember:#E8390E;--data:#3B82F6;
+    --text:#EAEEF4;--muted:#7E8AA0;
+    --display:'Space Grotesk',sans-serif;--body:'Manrope',sans-serif;--mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--ink);color:var(--text);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(900px 520px at 92% -8%,rgba(232,57,14,.09),transparent 60%),radial-gradient(820px 540px at -6% 60%,rgba(46,230,160,.08),transparent 60%);}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 32px}
+  section{padding:70px 0;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;margin-bottom:18px;color:var(--muted)}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,8vw,80px);line-height:1.03;letter-spacing:-.03em}
+  h2{font-family:var(--display);font-weight:600;font-size:clamp(26px,4vw,40px);line-height:1.08;letter-spacing:-.02em;margin-bottom:14px}
+  h3{font-family:var(--display);font-weight:600;font-size:19px;margin:0 0 8px}
+  p{max-width:70ch}.lede{font-size:clamp(17px,2vw,20px);color:#C7D0DE}.muted{color:var(--muted)}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:26px 0;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em}
+  .reticle{display:flex;align-items:center;gap:12px}
+  .grid{display:grid;gap:20px;margin-top:30px}
+  .g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:780px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px}
+  img.asset{width:100%;border-radius:14px;border:1px solid var(--line);display:block;background:var(--ink)}
+  .cap{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:10px}
+  .cap b{color:var(--text);font-family:var(--body)}
+  .swatch{border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+  .swatch .chip{height:90px}.swatch .info{padding:12px 14px;background:var(--surface);font-family:var(--mono);font-size:12px;line-height:1.6}
+  .swatch .info b{font-family:var(--body);font-weight:700;font-size:13px;display:block}
+  .do-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+  @media(max-width:780px){.do-row{grid-template-columns:1fr}}
+  .do{border-left:3px solid var(--green)}.dont{border-left:3px solid var(--ember)}
+  .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+  ul.clean{list-style:none;margin-top:8px}ul.clean li{padding:7px 0 7px 22px;position:relative;color:#C7D0DE}
+  ul.clean li:before{content:"›";position:absolute;left:0;font-family:var(--mono);color:var(--muted)}
+  code{font-family:var(--mono);font-size:.88em;color:var(--green)}
+  footer{padding:54px 0;text-align:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="reticle">
+      <svg width="26" height="26" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="19" stroke="#EAEEF4" stroke-width="2.5"/><path d="M24 5 V13 M24 35 V43 M5 24 H13 M35 24 H43" stroke="#EAEEF4" stroke-width="2.5" stroke-linecap="round"/><circle cx="24" cy="24" r="5.5" fill="#E8390E"/><path d="M24 18.5 a5.5 5.5 0 0 1 0 11 z" fill="#2EE6A0"/></svg>
+      <span>HUNTER LABS</span>
+    </div>
+    <span>KIT DE PERFIS · v1.0 · 2026</span>
+  </div>
+</div>
+
+<header class="wrap" style="padding:60px 0 30px">
+  <div class="eyebrow">Identidade visual das redes</div>
+  <h1>Kit de perfis</h1>
+  <p class="lede" style="margin-top:22px">Avatar, banner, capas de destaque e templates de post — prontos pra subir. Todos os PNGs estão na pasta <code>assets/</code>, ao lado deste arquivo. Esta página é a fonte da verdade visual (renderiza com a tipografia real Space Grotesk no seu navegador).</p>
+</header>
+
+<section class="wrap">
+  <div class="eyebrow">01 — Símbolo & avatar</div>
+  <h2>A mira da casa</h2>
+  <p class="lede">A retícula de mira é o símbolo da família Hunter. No guarda-chuva ela é <b>neutra</b> (anel e marcas em branco/mist), com o <b>ponto central dividido</b>: ember à esquerda (AdHunter), signal green à direita (Hunter AI). Duas caças, um alvo.</p>
+  <div class="grid g2">
+    <div><img class="asset" src="assets/avatar-hunterlabs.png" alt="Avatar Hunter Labs"><div class="cap"><b>avatar-hunterlabs.png</b> · 1000×1000 · foto de perfil LinkedIn + Instagram (idêntico nas duas)</div></div>
+    <div><img class="asset" src="assets/symbol-hunterlabs.png" alt="Símbolo transparente"><div class="cap"><b>symbol-hunterlabs.png</b> · 1000×1000 · fundo transparente · favicon, marca d'água, app icon</div></div>
+  </div>
+  <p class="muted" style="margin-top:16px;font-family:var(--mono);font-size:12px">Respiro mínimo ao redor da mira = raio do ponto central ×3. Nunca distorça, gire ou recolora o anel.</p>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">02 — Banner do LinkedIn</div>
+  <h2>Capa da página</h2>
+  <img class="asset" src="assets/linkedin-banner.png" alt="Banner LinkedIn">
+  <div class="cap"><b>linkedin-banner.png</b> · 1584×396 · capa da Página da empresa no LinkedIn</div>
+  <p class="muted" style="margin-top:14px">O logo da página cobre o canto inferior esquerdo — por isso o texto fica centralizado. A faixa <code>RASTREAR → MIRAR → CAPTURAR</code> amarra o conceito da família.</p>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">03 — Templates de post (1080×1080)</div>
+  <h2>Três modelos, um sistema</h2>
+  <p class="lede">Cada formato mapeia um pilar e sinaliza o produto pela cor. Use como base no Canva/Figma — troque o texto, mantenha grid, cores e a assinatura inferior.</p>
+  <div class="grid g3">
+    <div><img class="asset" src="assets/post-template-frase.png" alt="Template frase"><div class="cap"><b>frase</b> · tese / manifesto · neutro (marca-mãe)</div></div>
+    <div><img class="asset" src="assets/post-template-educacao.png" alt="Template educação"><div class="cap"><b>educação</b> · capa de carrossel · ember (AdHunter)</div></div>
+    <div><img class="asset" src="assets/post-template-dado.png" alt="Template dado"><div class="cap"><b>dado</b> · número-herói · green (Hunter AI)</div></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">04 — Capas de destaque (Instagram)</div>
+  <h2>Stories Highlights</h2>
+  <div class="grid g4">
+    <div><img class="asset" src="assets/highlight-manifesto.png" alt="Highlight manifesto"><div class="cap"><b>Manifesto</b></div></div>
+    <div><img class="asset" src="assets/highlight-adhunter.png" alt="Highlight AdHunter"><div class="cap"><b>AdHunter</b></div></div>
+    <div><img class="asset" src="assets/highlight-hunterai.png" alt="Highlight Hunter AI"><div class="cap"><b>Hunter AI</b></div></div>
+    <div><img class="asset" src="assets/highlight-bastidor.png" alt="Highlight Bastidor"><div class="cap"><b>Bastidor</b></div></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">05 — Cor</div>
+  <h2>Paleta</h2>
+  <p class="lede">Fundo Ink domina (60%), Mist estrutura o texto (30%), ember + green são acentos com significado (10%). No guarda-chuva, ember e green nunca aparecem juntos como decoração — cada um marca seu produto.</p>
+  <div class="grid g4" style="margin-top:30px">
+    <div class="swatch"><div class="chip" style="background:#0A0D14"></div><div class="info"><b>Ink</b>#0A0D14 · fundo</div></div>
+    <div class="swatch"><div class="chip" style="background:#11151E"></div><div class="info"><b>Surface</b>#11151E · cards</div></div>
+    <div class="swatch"><div class="chip" style="background:#222a38"></div><div class="info"><b>Line</b>#222a38 · bordas</div></div>
+    <div class="swatch"><div class="chip" style="background:#EAEEF4"></div><div class="info"><b>Mist</b>#EAEEF4 · texto / mira</div></div>
+    <div class="swatch"><div class="chip" style="background:#E8390E"></div><div class="info"><b>Ember</b>#E8390E · AdHunter</div></div>
+    <div class="swatch"><div class="chip" style="background:#2EE6A0"></div><div class="info"><b>Signal Green</b>#2EE6A0 · Hunter AI</div></div>
+    <div class="swatch"><div class="chip" style="background:#FFB23E"></div><div class="info"><b>Amber</b>#FFB23E · calor / destaque</div></div>
+    <div class="swatch"><div class="chip" style="background:#3B82F6"></div><div class="info"><b>Data</b>#3B82F6 · gráficos</div></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">06 — Tipografia</div>
+  <h2>Três fontes</h2>
+  <div class="card" style="margin-top:20px">
+    <div style="font-family:var(--display);font-weight:700;font-size:clamp(30px,5vw,56px);line-height:1;letter-spacing:-.02em">Space Grotesk — títulos</div>
+    <p style="font-family:var(--body);font-size:17px;margin-top:18px;color:#C7D0DE">Manrope — corpo e legendas. Calor e legibilidade em qualquer tela.</p>
+    <div style="font-family:var(--mono);font-size:15px;margin-top:16px;color:var(--green)">JetBrains Mono — dados, métricas e o @ · ROAS 4.2x · +38%</div>
+  </div>
+  <p class="muted" style="margin-top:16px;font-family:var(--mono);font-size:12px">Nota técnica: os PNGs foram renderizados com Manrope no display (o ambiente de geração não tinha Space Grotesk). Para arte final no Canva/Figma, use Space Grotesk 700 nos títulos — esta página já mostra o resultado correto.</p>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">07 — Regras</div>
+  <h2>Faça / não faça</h2>
+  <div class="do-row">
+    <div class="card do"><span class="tag" style="color:var(--green);border-color:rgba(46,230,160,.4)">✓ Faça</span>
+      <ul class="clean"><li>Bastante fundo escuro (espaço negativo).</li><li>Uma ideia por peça; número em destaque.</li><li>Cor do produto certo (ember = AdHunter, green = Hunter AI).</li><li>Assinatura inferior com o @ em mono.</li></ul>
+    </div>
+    <div class="card dont"><span class="tag" style="color:var(--ember);border-color:rgba(232,57,14,.4)">✕ Não faça</span>
+      <ul class="clean"><li>Gradiente roxo genérico de "IA".</li><li>Misturar ember e green como enfeite.</li><li>Distorcer ou recolorir a mira.</li><li>Encher de emoji ou de texto.</li></ul>
+    </div>
+  </div>
+</section>
+
+<footer>HUNTER LABS · KIT DE PERFIS v1.0 · arquivos em ./assets · documento vivo</footer>
+</body>
+</html>
