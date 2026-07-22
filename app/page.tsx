@@ -3,7 +3,7 @@ import { ParticleField } from "@/components/visuals/particle-field";
 
 export default function Home() {
   return (
-    <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-ink px-6 text-center">
+    <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-ink px-6 pt-20 text-center">
       <ParticleField />
 
       <div className="relative z-10 flex max-w-xl flex-col items-center gap-6">
