@@ -22,12 +22,14 @@ Development milestones. Each milestone is a deliverable, testable increment. Do 
 
 **Delivered:** `lib/whatsapp.ts` (centralized `buildWhatsAppLink()` helper, placeholder number), `components/layout/whatsapp-cta.tsx` (reusable CTA with signal-green glow + hover/tap micro-interaction, server-renderable), `components/layout/site-header.tsx` (sticky header, client component — transparent-to-blurred transition on scroll, signal-tinted border, one-time entrance animation via framer-motion), `components/layout/site-footer.tsx` (minimal footer, symbol + copyright), all wired into `app/layout.tsx`. Built via subagent-driven development (implementer + reviewer per task, plus a final whole-branch review); merged to `master` and pushed to GitHub. No nav anchor links yet (no sections to link to). **Known follow-up:** placeholder WhatsApp number (`5511999999999`, flagged with `TODO` in `lib/whatsapp.ts`) needs the real number before launch; `pt-20` hero clearance is hand-tuned to the header's current height. Design: [`docs/plans/2026-07-22-milestone-1-page-shell-navigation-design.md`](./plans/2026-07-22-milestone-1-page-shell-navigation-design.md). Plan: [`docs/plans/2026-07-22-milestone-1-page-shell-navigation.md`](./plans/2026-07-22-milestone-1-page-shell-navigation.md).
 
-## Milestone 2 — Hero section
+## Milestone 2 — Hero section ✅ Done
 
 - Hero headline + subheadline addressing the core pain (slow/disorganized customer service losing sales)
 - Primary WhatsApp CTA above the fold
 - Crosshair/brand visual treatment per brand book
 - Verify: hero is the clear first impression, CTA is prominent and functional on mobile + desktop
+
+**Delivered:** `components/sections/hero.tsx` — headline/subheadline naming the pain and the `agentes de IA humanizados` solution, a prominent `WhatsAppCta`, and the crosshair/mira symbol as a centered, non-distorted decorative background (`alt=""`/`aria-hidden`), with a staggered framer-motion entrance and a subtle desktop-only mouse parallax, both correctly disabled under `prefers-reduced-motion`. Depth cues added to `components/visuals/particle-field.tsx` (vertex-color brightness variation by depth) to reinforce the 3D field without introducing new colors or glass panels. Built via subagent-driven development (implementer + reviewer per task); two real defects — a reduced-motion race condition and a crosshair aspect-ratio distortion — were caught during browser-based verification and fixed before task approval. A dedicated accessibility pass confirmed contrast, the decorative-image treatment, and keyboard focus all PASS via real browser testing. Built and reviewed on the `milestone-2-hero-section` branch (not yet merged to `master`). Design: [`docs/plans/2026-07-22-milestone-2-hero-section-design.md`](./plans/2026-07-22-milestone-2-hero-section-design.md). Plan: [`docs/plans/2026-07-22-milestone-2-hero-section.md`](./plans/2026-07-22-milestone-2-hero-section.md).
 
 ## Milestone 3 — Services section (3 offers)
 
