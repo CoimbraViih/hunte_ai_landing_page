@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import { ParticleField } from "@/components/visuals/particle-field";
@@ -21,15 +21,11 @@ const itemVariants: Variants = {
 };
 
 export function Hero() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(
-    () =>
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [parallax, setParallax] = useState({ x: 0, y: 0 });
   const rafRef = useRef<number | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     function handleChange() {
@@ -42,8 +38,10 @@ export function Hero() {
   }, []);
 
   useEffect(() => {
-    if (prefersReducedMotion) return;
-    if (!window.matchMedia("(pointer: fine)").matches) return;
+    if (prefersReducedMotion || !window.matchMedia("(pointer: fine)").matches) {
+      setParallax({ x: 0, y: 0 });
+      return;
+    }
 
     function handleMouseMove(event: MouseEvent) {
       const mouseX = event.clientX - window.innerWidth / 2;
@@ -62,6 +60,7 @@ export function Hero() {
       if (rafRef.current !== null) {
         cancelAnimationFrame(rafRef.current);
       }
+      setParallax({ x: 0, y: 0 });
     };
   }, [prefersReducedMotion]);
 
