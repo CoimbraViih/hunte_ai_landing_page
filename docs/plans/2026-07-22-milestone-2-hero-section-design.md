@@ -28,12 +28,29 @@ Exact wording stays adjustable during implementation — the above is the workin
 - Desktop (`sm:`/`lg:`): same centered single-column stack (this is a lean institutional hero, not a two-column split) — widen `max-w-xl` to `max-w-2xl` for the headline so it doesn't wrap too aggressively at large sizes.
 - Crosshair mark: centered, large (`~60vh` or fixed large px on desktop, smaller on mobile so it doesn't overpower the copy), low opacity (`opacity-[0.08]`–`0.12` range, tuned visually), `pointer-events-none` so it never intercepts clicks/taps meant for the CTA.
 
+## Elevated motion & depth (within brand)
+
+Direction requested for this milestone: raise the hero's motion/depth/interactivity quality (inspired by immersive WebGL/particle sites) while staying **strictly inside** the existing brand system — confirmed with the user after flagging the conflict with `docs/CLAUDE.md`'s institutional/Linear-Vercel tone and the brand book's "no generic AI gradients, don't flood the screen with green" rule. Concretely, in scope:
+
+- **Richer `ParticleField`:** keep the existing signal-green points, but add depth cues — vary point size/opacity slightly by z-position so the field reads as 3D space, not a flat texture. Still one color (`#2EE6A0`), still low-key ambient, not a light show.
+- **Subtle parallax:** on desktop (pointer-fine devices), the crosshair mark and particle field drift a few pixels opposite mouse movement (cheap `translate` via a `mousemove` listener or CSS `transform` driven by state, no new heavy library) so the scene has a light "camera" feel. Must respect `prefers-reduced-motion: reduce` — disable parallax and continuous motion entirely when set.
+- **Staggered entrance:** eyebrow → headline → subheadline → CTA fade/slide up in sequence via framer-motion (already a dependency, same pattern as `SiteHeader`'s existing entrance animation from Milestone 1) — reads as a composed reveal rather than everything popping in at once.
+- **One glass accent, not a UI of them:** the eyebrow label (`ATENDIMENTO LENTO. VENDA PERDIDA.`) sits in a single small pill with `bg-white/5 backdrop-blur-sm border border-white/10` — a restrained nod to "floating glass card," not a page full of translucent panels.
+- **CTA glow:** `WhatsAppCta` already ships a signal-green box-shadow glow (Milestone 1) — this milestone can intensify it slightly on hover only; no continuously pulsing/animated glow (would compete with the "lean, single clear CTA" convention).
+
+Explicitly **out of scope** (this is where the sci-fi prompt's literal ask gets rejected, not adapted):
+- Neon multi-color gradients, purple/blue sci-fi palettes — signal-green + amber + ink only, per brand book.
+- Multiple floating holographic/glassmorphism panels covering the viewport.
+- Literal "cinematic camera transitions" between sections, 3D scene navigation, or game-like interaction — this is a single static hero, not a WebGL experience site.
+- Saturating the viewport in green ("não encha a tela de verde") — the particle field and crosshair stay low-opacity ambient accents, never the visual foreground.
+
 ## Verify
 
 - `npm run dev`: hero is the first thing visible on load (no scrolling needed to see headline + CTA) at common viewport heights (mobile ~667px, laptop ~800px+).
 - CTA is clickable/tappable and opens the correct `wa.me` link (inherits `buildWhatsAppLink()` — no changes to `lib/whatsapp.ts` in this milestone).
 - Crosshair visual doesn't reduce text contrast (WCAG check on headline/subheadline against `bg-ink` with the mark behind it) and doesn't block CTA interaction.
 - Mobile (360px) and desktop (1280px+): no horizontal scroll, no overlap between crosshair mark and text/CTA.
+- `prefers-reduced-motion: reduce` (OS/browser setting): parallax and entrance animation are disabled/instant — content is still fully visible and functional, just static.
 
 ## Out of scope
 
