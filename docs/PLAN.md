@@ -2,7 +2,7 @@
 
 Development milestones. Each milestone is a deliverable, testable increment. Do not start a milestone until the previous one is verified working. See [`../PRD.md`](../PRD.md) for full context and [`CLAUDE.md`](./CLAUDE.md) for working conventions.
 
-## Milestone 0 — Project setup
+## Milestone 0 — Project setup ✅ Done
 
 - Scaffold Next.js (App Router) + TypeScript + Tailwind CSS project
 - Install and configure shadcn/ui
@@ -11,12 +11,16 @@ Development milestones. Each milestone is a deliverable, testable increment. Do 
 - Import brand assets (logo, crosshair symbol) from `brand/` into `public/`
 - Verify: app runs locally (`next dev`), base theme colors/fonts render on a blank page
 
-## Milestone 1 — Page shell & navigation
+**Delivered:** Next.js + TypeScript + Tailwind + shadcn/ui scaffolded, brand fonts/colors wired into `tailwind.config`/`app/globals.css`, logo/symbol imported into `public/`, Three.js/React Three Fiber + drei + framer-motion installed with a particle-field smoke-test component (`components/visuals/particle-field.tsx`). Verified with `npm run dev` + `npm run build`. Plan: [`docs/plans/2026-07-22-milestone-0-project-setup.md`](./plans/2026-07-22-milestone-0-project-setup.md).
+
+## Milestone 1 — Page shell & navigation ✅ Done
 
 - Build base layout: header with logo, single WhatsApp CTA button, footer
 - Implement `wa.me` link (confirm target phone number with user before hardcoding)
 - Responsive shell: mobile-first, works down to small phone widths
 - Verify: header/footer render correctly across breakpoints, WhatsApp link opens correctly
+
+**Delivered:** `lib/whatsapp.ts` (centralized `buildWhatsAppLink()` helper, placeholder number), `components/layout/whatsapp-cta.tsx` (reusable CTA with signal-green glow + hover/tap micro-interaction, server-renderable), `components/layout/site-header.tsx` (sticky header, client component — transparent-to-blurred transition on scroll, signal-tinted border, one-time entrance animation via framer-motion), `components/layout/site-footer.tsx` (minimal footer, symbol + copyright), all wired into `app/layout.tsx`. Built via subagent-driven development (implementer + reviewer per task, plus a final whole-branch review); merged to `master` and pushed to GitHub. No nav anchor links yet (no sections to link to). **Known follow-up:** placeholder WhatsApp number (`5511999999999`, flagged with `TODO` in `lib/whatsapp.ts`) needs the real number before launch; `pt-20` hero clearance is hand-tuned to the header's current height. Design: [`docs/plans/2026-07-22-milestone-1-page-shell-navigation-design.md`](./plans/2026-07-22-milestone-1-page-shell-navigation-design.md). Plan: [`docs/plans/2026-07-22-milestone-1-page-shell-navigation.md`](./plans/2026-07-22-milestone-1-page-shell-navigation.md).
 
 ## Milestone 2 — Hero section
 
