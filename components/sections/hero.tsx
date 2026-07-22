@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import { ParticleField } from "@/components/visuals/particle-field";
@@ -27,6 +27,7 @@ export function Hero() {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
   const [parallax, setParallax] = useState({ x: 0, y: 0 });
+  const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -47,13 +48,21 @@ export function Hero() {
     function handleMouseMove(event: MouseEvent) {
       const mouseX = event.clientX - window.innerWidth / 2;
       const mouseY = event.clientY - window.innerHeight / 2;
-      requestAnimationFrame(() => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+      rafRef.current = requestAnimationFrame(() => {
         setParallax({ x: mouseX * -0.02, y: mouseY * -0.02 });
       });
     }
 
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
   }, [prefersReducedMotion]);
 
   return (
@@ -61,6 +70,7 @@ export function Hero() {
       <div
         className="absolute inset-0 -z-10"
         style={{ transform: `translate(${parallax.x}px, ${parallax.y}px)` }}
+        aria-hidden
       >
         <ParticleField />
       </div>
@@ -71,7 +81,7 @@ export function Hero() {
         aria-hidden
         width={640}
         height={640}
-        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[min(70vh,90vw)] w-[min(70vh,90vw)] -translate-x-1/2 -translate-y-1/2 opacity-[0.08] sm:h-[min(55vh,70vw)] sm:w-[min(55vh,70vw)]"
+        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[min(70vh,90vw)] w-[min(70vh,90vw)] opacity-[0.08] sm:h-[min(55vh,70vw)] sm:w-[min(55vh,70vw)]"
         style={{ transform: `translate(calc(-50% + ${parallax.x}px), calc(-50% + ${parallax.y}px))` }}
       />
 
