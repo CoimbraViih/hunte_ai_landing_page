@@ -21,7 +21,11 @@ const itemVariants: Variants = {
 };
 
 export function Hero() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
   const [parallax, setParallax] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -67,7 +71,7 @@ export function Hero() {
         aria-hidden
         width={640}
         height={640}
-        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[70vh] w-[70vh] -translate-x-1/2 -translate-y-1/2 opacity-[0.08] sm:h-[55vh] sm:w-[55vh]"
+        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[min(70vh,90vw)] w-[min(70vh,90vw)] -translate-x-1/2 -translate-y-1/2 opacity-[0.08] sm:h-[min(55vh,70vw)] sm:w-[min(55vh,70vw)]"
         style={{ transform: `translate(calc(-50% + ${parallax.x}px), calc(-50% + ${parallax.y}px))` }}
       />
 
