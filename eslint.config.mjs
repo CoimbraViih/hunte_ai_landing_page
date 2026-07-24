@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Nested worktree checkouts (this project's own milestone worktrees,
+    // and any unrelated project content that ends up under here) are not
+    // part of this app and must not be linted as if they were.
+    ".claude/**",
   ]),
 ]);
 
