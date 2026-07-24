@@ -168,7 +168,7 @@ export function Services() {
                 </CardHeader>
 
                 <CardContent className="flex flex-col gap-2">
-                  <h3 className="font-display text-lg font-semibold text-zinc-50">
+                  <h3 className="font-display text-lg font-semibold leading-snug text-zinc-50">
                     {service.title}
                   </h3>
                   <CardDescription className="font-body text-sm text-zinc-400">
