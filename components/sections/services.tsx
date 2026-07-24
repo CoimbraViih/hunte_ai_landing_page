@@ -157,12 +157,12 @@ export function Services() {
         >
           {services.map((service) => (
             <motion.div key={service.index} variants={cardVariants}>
-              <Card className="h-full border border-white/10 bg-white/[0.03] text-zinc-50 ring-0 transition hover:-translate-y-1 hover:border-signal/40">
-                <CardHeader className="flex flex-row items-start justify-between gap-4">
+              <Card className="h-full border border-white/10 bg-white/[0.03] text-zinc-50 ring-0 transition hover:-translate-y-1 hover:border-signal/40 [--card-spacing:--spacing(6)]">
+                <CardHeader className="flex flex-col items-start gap-4">
                   <div className="flex size-11 shrink-0 items-center justify-center rounded-lg border border-signal/20 bg-signal/10">
                     <service.icon className="size-5 text-signal" aria-hidden />
                   </div>
-                  <span className="font-mono text-xs text-zinc-500">
+                  <span className="font-mono text-xs tracking-widest text-zinc-500">
                     {service.index}
                   </span>
                 </CardHeader>
