@@ -39,7 +39,6 @@ export function Hero() {
 
   useEffect(() => {
     if (prefersReducedMotion || !window.matchMedia("(pointer: fine)").matches) {
-      setParallax({ x: 0, y: 0 });
       return;
     }
 
@@ -60,15 +59,19 @@ export function Hero() {
       if (rafRef.current !== null) {
         cancelAnimationFrame(rafRef.current);
       }
-      setParallax({ x: 0, y: 0 });
     };
   }, [prefersReducedMotion]);
+
+  // Reduced motion (or a coarse pointer) always renders at rest, regardless
+  // of whatever the parallax state last held — computed at render time so
+  // no effect needs to reset it.
+  const appliedParallax = prefersReducedMotion ? { x: 0, y: 0 } : parallax;
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden bg-ink pt-20">
       <div
         className="absolute inset-0 -z-10"
-        style={{ transform: `translate(${parallax.x}px, ${parallax.y}px)` }}
+        style={{ transform: `translate(${appliedParallax.x}px, ${appliedParallax.y}px)` }}
         aria-hidden
       >
         <ParticleField />
@@ -81,7 +84,9 @@ export function Hero() {
         width={640}
         height={640}
         className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[min(70vh,90vw)] w-[min(70vh,90vw)] opacity-[0.08] sm:h-[min(55vh,70vw)] sm:w-[min(55vh,70vw)]"
-        style={{ transform: `translate(calc(-50% + ${parallax.x}px), calc(-50% + ${parallax.y}px))` }}
+        style={{
+          transform: `translate(calc(-50% + ${appliedParallax.x}px), calc(-50% + ${appliedParallax.y}px))`,
+        }}
       />
 
       <motion.div

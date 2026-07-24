@@ -10,7 +10,7 @@ export function SiteFooter() {
             Hunter.AI
           </span>
         </div>
-        <p className="font-body text-xs text-zinc-500">
+        <p className="font-body text-xs text-zinc-400">
           © 2026 Hunter.AI. Todos os direitos reservados.
         </p>
       </div>

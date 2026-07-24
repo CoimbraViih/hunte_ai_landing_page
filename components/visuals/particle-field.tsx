@@ -8,7 +8,11 @@ function Points() {
   const ref = useRef<THREE.Points>(null);
   const count = 800;
 
-  const positions = useMemo(() => {
+  // Lazy useState initializer (not useMemo): this is the sanctioned place
+  // for a one-time non-deterministic computation — useMemo's factory is
+  // assumed pure and may be re-invoked/discarded (e.g. under Strict Mode
+  // double-render or the React Compiler), which Math.random() would break.
+  const [positions] = useState(() => {
     const array = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       array[i * 3] = (Math.random() - 0.5) * 10;
@@ -16,7 +20,7 @@ function Points() {
       array[i * 3 + 2] = (Math.random() - 0.5) * 10;
     }
     return array;
-  }, []);
+  });
 
   // Depth cue: points closer to the camera (larger z, since camera sits at
   // z=5 looking toward the origin) get a brighter shade of signal-green;

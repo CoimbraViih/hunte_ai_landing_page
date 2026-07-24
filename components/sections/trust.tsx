@@ -67,7 +67,7 @@ export function Trust() {
   }, []);
 
   return (
-    <section id="como-funciona" className="bg-ink py-24 sm:py-32">
+    <section id="como-funciona" className="scroll-mt-24 bg-ink py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <motion.div
           initial={prefersReducedMotion ? false : "hidden"}

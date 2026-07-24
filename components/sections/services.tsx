@@ -119,7 +119,7 @@ export function Services() {
   }, []);
 
   return (
-    <section id="servicos" className="bg-ink py-24 sm:py-32">
+    <section id="servicos" className="scroll-mt-24 bg-ink py-24 sm:py-32">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
@@ -162,7 +162,7 @@ export function Services() {
                   <div className="flex size-11 shrink-0 items-center justify-center rounded-lg border border-signal/20 bg-signal/10">
                     <service.icon className="size-5 text-signal" aria-hidden />
                   </div>
-                  <span className="font-mono text-xs tracking-widest text-zinc-500">
+                  <span className="font-mono text-xs tracking-widest text-zinc-400">
                     {service.index}
                   </span>
                 </CardHeader>
