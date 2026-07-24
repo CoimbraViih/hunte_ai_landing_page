@@ -90,7 +90,7 @@ export function Trust() {
           </p>
         </motion.div>
 
-        <motion.div
+        <motion.ol
           initial={prefersReducedMotion ? false : "hidden"}
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
@@ -98,14 +98,17 @@ export function Trust() {
           className="mt-16"
         >
           {steps.map((step, i) => (
-            <motion.div
+            <motion.li
               key={step.index}
               variants={rowVariants}
               className={`grid grid-cols-[56px_1fr] gap-4 py-9 sm:grid-cols-[80px_1fr] sm:gap-7 ${
                 i < steps.length - 1 ? "border-b border-dashed border-white/10" : ""
               }`}
             >
-              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-signal/30 bg-signal/5 font-display text-base font-bold text-signal">
+              <div
+                aria-hidden="true"
+                className="flex h-14 w-14 items-center justify-center rounded-full border border-signal/30 bg-signal/5 font-display text-base font-bold text-signal"
+              >
                 {step.index}
               </div>
 
@@ -120,9 +123,9 @@ export function Trust() {
                   {step.body}
                 </p>
               </div>
-            </motion.div>
+            </motion.li>
           ))}
-        </motion.div>
+        </motion.ol>
       </div>
     </section>
   );
