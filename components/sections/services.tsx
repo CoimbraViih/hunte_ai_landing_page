@@ -134,7 +134,7 @@ export function Services() {
           className="max-w-2xl"
         >
           <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-1.5 font-mono text-xs uppercase tracking-widest text-amber backdrop-blur-sm">
-            02 — O que fazemos
+            02 — O QUE FAZEMOS
           </span>
 
           <h2 className="mt-6 font-display text-3xl font-semibold tracking-tight text-zinc-50 sm:text-4xl">
