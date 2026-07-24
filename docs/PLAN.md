@@ -39,18 +39,21 @@ Development milestones. Each milestone is a deliverable, testable increment. Do 
   3. Redesign/otimização de site
 - Copy must describe outcomes, not the automation tooling (no mention of n8n)
 - Verify: each service is scannable, hierarchy is clear, no implementation-detail leaks in copy
+- Tooling: use the shadcn MCP for the card primitive, the `frontend-design` skill for layout/visual quality, and `motion-design`/`gsap-scrolltrigger` if cards get scroll-triggered entrances.
 
 ## Milestone 4 — Trust/credibility section
 
 - Section reinforcing why a non-technical owner should trust Hunter.AI (e.g., how it works in plain terms, what to expect after reaching out)
 - Keep light — this is not a full case-studies/testimonials system, just enough to reduce friction before the CTA
 - Verify: section supports conversion intent without overloading the page
+- Tooling: `frontend-design` skill for layout; keep animation consistent with earlier sections via `motion-design` principles.
 
 ## Milestone 5 — Final CTA & footer
 
 - Closing CTA section repeating the WhatsApp contact path
 - Footer with brand mark, minimal links (no dead links/pages)
 - Verify: full page scroll flows logically from hero → services → trust → final CTA
+- Tooling: reuse existing `WhatsAppCta`/`site-footer` patterns; `frontend-design` skill for the closing CTA treatment.
 
 ## Milestone 6 — Polish & QA
 
@@ -58,6 +61,7 @@ Development milestones. Each milestone is a deliverable, testable increment. Do 
 - Accessibility check: contrast (dark background + accent colors), focus states, semantic HTML
 - Performance pass: image optimization, font loading strategy, Lighthouse check
 - Verify: production build (`next build`) is clean, Lighthouse scores are healthy
+- Tooling: drive the pass with the **Chrome DevTools MCP** (console/network/perf traces, screenshots across breakpoints) and audit against the **web-design-guidelines** skill before sign-off.
 
 ## Milestone 7 — Deploy
 
