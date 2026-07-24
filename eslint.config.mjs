@@ -16,6 +16,10 @@ const eslintConfig = defineConfig([
     // and any unrelated project content that ends up under here) are not
     // part of this app and must not be linted as if they were.
     ".claude/**",
+    // Stray untracked directory (literal "~", not the home directory —
+    // some external tool wrote here without shell-expanding it) containing
+    // unrelated project files. Not part of this app.
+    "~/**",
   ]),
 ]);
 
