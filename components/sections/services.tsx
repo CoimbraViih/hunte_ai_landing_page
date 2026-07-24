@@ -3,7 +3,7 @@
 import { useLayoutEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { Globe, MessageCircle, RefreshCw, type LucideIcon } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 
 const serviceSchema = {
   "@context": "https://schema.org",
@@ -168,9 +168,9 @@ export function Services() {
                 </CardHeader>
 
                 <CardContent className="flex flex-col gap-2">
-                  <CardTitle className="font-display text-lg font-semibold text-zinc-50">
+                  <h3 className="font-display text-lg font-semibold text-zinc-50">
                     {service.title}
-                  </CardTitle>
+                  </h3>
                   <CardDescription className="font-body text-sm text-zinc-400">
                     {service.body}
                   </CardDescription>
